@@ -29,9 +29,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def room_version = "2.4.2"
     def koin_version = "3.1.5"
     def retrofit_version = "2.9.0"

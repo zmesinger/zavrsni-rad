@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceAppXML">
         <activity
-            android:name=".view.ui.MainActivity"
+            android:name=".view.ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

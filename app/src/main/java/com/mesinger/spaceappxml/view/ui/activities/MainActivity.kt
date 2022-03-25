@@ -1,4 +1,4 @@
-package com.mesinger.spaceappxml.view.ui
+package com.mesinger.spaceappxml.view.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
