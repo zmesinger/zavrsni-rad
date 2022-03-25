@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "374937062709",
+    "project_id": "spaceapp-35d76",
+    "storage_bucket": "spaceapp-35d76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374937062709:android:58ce83361a99078e0ad07c",
+        "android_client_info": {
+          "package_name": "com.mesinger.spaceappxml"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374937062709-0c6hsdb1ire53qdbjoetupai934elhhh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBwXF06d3WC3IJBGl61c-NFaptHnN3OcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374937062709-0c6hsdb1ire53qdbjoetupai934elhhh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
