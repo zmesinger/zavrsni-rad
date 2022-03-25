@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SpaceAppXML</string>
+    <string name="enter_email_address">Enter email address</string>
+    <string name="enter_password">Enter password</string>
 </resources>
