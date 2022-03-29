@@ -64,4 +64,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private fun getEmail() = binding.signInEmailTextField.doOnTextChanged() {newEmail, _, _, _ -> viewModel.setEmail(newEmail.toString()) }
 
     private fun getPassword() = binding.signInPasswordEditText.doOnTextChanged() {newPassword, _, _, _ -> viewModel.setPassword(newPassword.toString())}
+
+    //TODO Add navigation to next screen
 }
