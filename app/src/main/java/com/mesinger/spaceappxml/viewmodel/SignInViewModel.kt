@@ -1,16 +1,13 @@
 package com.mesinger.spaceappxml.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class SignInViewModel : ViewModel() {
-    private lateinit var auth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
 
     private val _user: MutableLiveData<Boolean> = MutableLiveData(false)
     private var email: String = String()
@@ -33,11 +30,11 @@ class SignInViewModel : ViewModel() {
 
     fun setPassword(password: String){
         this.password = password
-    }   
+    }
 
     fun singIn(){
-        auth = FirebaseAuth.getInstance()
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+        mAuth = FirebaseAuth.getInstance()
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful){
                 _user.value = true
                 Log.d("SignInViewModel", "singIn: success")

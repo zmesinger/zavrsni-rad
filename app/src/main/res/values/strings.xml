@@ -19,4 +19,6 @@
     <string name="sign_in">Sign in</string>
     <string name="sign_in_with_google">Sign in with google</string>
     <string name="welcome_sign_in_register">Welcome, sign in or register</string>
+    <string name="minimum_characters" >Enter 7 or more characters</string>
+    <string name="email_is_not_valid">Please enter valid email address</string>
 </resources>

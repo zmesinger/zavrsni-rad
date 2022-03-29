@@ -4,17 +4,17 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class User(
-    val id: String?,
-    val username: String?,
-    val email: String?,
-    val password: String?
+    val id: String,
+    val username: String,
+    val email: String,
+    val password: String
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString(),
+        parcel.readString().toString()
     ) {
     }
 
