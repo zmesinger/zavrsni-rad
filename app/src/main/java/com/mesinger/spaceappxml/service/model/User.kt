@@ -6,12 +6,10 @@ import android.os.Parcelable
 data class User(
     val id: String,
     val username: String,
-    val email: String,
-    val password: String
+    val email: String
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString()
@@ -22,7 +20,6 @@ data class User(
         parcel.writeString(id)
         parcel.writeString(username)
         parcel.writeString(email)
-        parcel.writeString(password)
     }
 
     override fun describeContents(): Int {

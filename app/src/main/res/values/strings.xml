@@ -21,4 +21,6 @@
     <string name="welcome_sign_in_register">Welcome, sign in or register</string>
     <string name="minimum_characters" >Enter 7 or more characters</string>
     <string name="email_is_not_valid">Please enter valid email address</string>
+    <string name="no_empty_password">Your password cannot be empty</string>
+    <string name="name_cannot_be_empty">Name cannot be empty</string>
 </resources>
