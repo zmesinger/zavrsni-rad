@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentSignInBinding
 import com.mesinger.spaceappxml.viewmodel.SignInViewModel
@@ -59,6 +60,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 }
             }
         }
+    }
+
+    private fun hideBottomNav(){
+
     }
 
     private fun getEmail() = binding.signInEmailTextField.doOnTextChanged() {newEmail, _, _, _ -> viewModel.setEmail(newEmail.toString()) }

@@ -14,7 +14,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_sign_in_or_register">Welcome, sign in or register</string>
-    <string name="enter_username">Enter username</string>
+    <string name="enter_name">Enter name</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_in_with_google">Sign in with google</string>
@@ -23,4 +23,7 @@
     <string name="email_is_not_valid">Please enter valid email address</string>
     <string name="no_empty_password">Your password cannot be empty</string>
     <string name="name_cannot_be_empty">Name cannot be empty</string>
+    <string name="mars_rover">Mars Rover</string>
+    <string name="nasa_library">NASA Library</string>
+    <string name="home">Home</string>
 </resources>

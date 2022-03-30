@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"
+        />
+    <item
+        android:id="@+id/ic_photo_library"
+        android:icon="@drawable/ic_photo_library"
+        android:title="@string/nasa_library"
+        />
+    <item
+        android:id="@+id/ic_rover_photo"
+        android:icon="@drawable/ic_rover_photo"
+        android:title="@string/mars_rover"
+        />
+
+    <item
+        android:id="@+id/ic_pic_of_the_day"
+        android:icon="@drawable/ic_pic_of_the_day"
+        android:title="Picture of the day"
+        />
+
+</menu>
