@@ -29,7 +29,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        goToRegister()
+        navigateToRegister()
 
         validateSignInInfo()
 
@@ -38,7 +38,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     }
 
-    private fun goToRegister(){
+    private fun navigateToRegister(){
         binding.registerButton.setOnClickListener { findNavController().navigate(R.id.action_signInFragment_to_registerFragment2) }
     }
 

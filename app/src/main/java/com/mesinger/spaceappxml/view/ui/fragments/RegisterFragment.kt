@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentRegisterBinding
 import com.mesinger.spaceappxml.viewmodel.RegisterViewModel
@@ -78,6 +79,10 @@ class RegisterFragment : Fragment() {
         })
     }
 
+    private fun navigateToSignIn(){
+        viewModel.signOut()
+        findNavController().navigate(R.id.action_registerFragment2_to_signInFragment)
+    }
 
 
     private fun getName() = binding.nameSurnameEmailTextField.doOnTextChanged { newName, _, _, _ -> viewModel.setName(newName.toString()) }
