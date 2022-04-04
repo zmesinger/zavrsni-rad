@@ -91,4 +91,5 @@ class RegisterFragment : Fragment() {
 
     private fun getPassword() = binding.registerPasswordEditText.doOnTextChanged { newPassword, _, _, _ -> viewModel.setPassword(newPassword.toString()) }
 
+    //TODO SET UP REGISTER SUCCESS AND NAVIGATE TO signInFragment
 }

@@ -1,6 +1,7 @@
 package com.mesinger.spaceappxml.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mesinger.spaceappxml.R
@@ -30,12 +32,12 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         navigateToRegister()
-
         validateSignInInfo()
-
         getEmail()
         getPassword()
+        singInUser()
 
     }
 
@@ -62,13 +64,22 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         }
     }
 
-    private fun hideBottomNav(){
-
+    private fun singInUser(){
+        viewModel.user.observe(viewLifecycleOwner, Observer { newUser ->
+            if(newUser){
+                navigateToHome()
+            }else{
+                Log.d("SignInFragment", "singInUser")
+            }
+        })
     }
+
 
     private fun getEmail() = binding.signInEmailTextField.doOnTextChanged() {newEmail, _, _, _ -> viewModel.setEmail(newEmail.toString()) }
 
     private fun getPassword() = binding.signInPasswordEditText.doOnTextChanged() {newPassword, _, _, _ -> viewModel.setPassword(newPassword.toString())}
 
-    //TODO Add navigation to next screen
+    private fun navigateToHome(){
+        findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
+    }
 }

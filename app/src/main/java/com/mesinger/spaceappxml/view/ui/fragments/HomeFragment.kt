@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentHomeBinding
 
 class HomeFragment: Fragment() {
@@ -22,5 +24,15 @@ class HomeFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
+
+    fun addNew(){
+        binding.homeFAB.setOnClickListener(){
+            //findNavController().navigate(R.id.)
+        }
+    }
+
+
+
 }
