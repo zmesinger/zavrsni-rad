@@ -26,4 +26,10 @@ class AddNewPhotoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun selectPhotoFromGallery(){
+        binding.selectPhotoButton.setOnClickListener(){
+            
+        }
+    }
+
     }

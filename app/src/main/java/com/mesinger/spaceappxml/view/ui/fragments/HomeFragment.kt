@@ -25,11 +25,12 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        addNew()
     }
 
-    fun addNew(){
+    private fun addNew(){
         binding.homeFAB.setOnClickListener(){
-            //findNavController().navigate(R.id.)
+            findNavController().navigate(R.id.action_homeFragment_to_addNewPhotoFragment)
         }
     }
 
