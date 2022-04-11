@@ -5,12 +5,19 @@ package com.mesinger.spaceappxml.view.ui.fragments
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.mesinger.spaceappxml.R
@@ -24,6 +31,8 @@ class AddNewPhotoFragment : Fragment() {
 
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,51 +43,57 @@ class AddNewPhotoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
+
     }
 
-    private fun initListeners() {
-        binding.selectPhotoButton.setOnClickListener() {
 
+    private fun initListeners(){
+        binding.selectPhotoButton.setOnClickListener(){
+            requestPermission()
         }
     }
 
-    private fun checkPermission(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
-                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                requestPermissions(permissions, Constants.PERMISSION_CODE)
+    private fun permissionLauncher(): ActivityResultLauncher<String> {
+        val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission(),
+            ActivityResultCallback {
+                isGranted: Boolean ->
+                    if(isGranted){
+                        Log.d("AddNewPhotoFragment", "Granted")
+                    }else{
+                        Log.d("AddNewPhotoFragment", "Denied")
+                    }
+            })
+        return requestPermissionLauncher
+    }
 
-            }else{
-                selectImageFromGallery()
+    private fun requestPermission(){
+        when {
+            checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED ->{
+                selectImageFromGallery().launch("image/*")
             }
-        }else{
-
-        }
-    }
-    //TODO replace deprecated methods startActivityForResult and requestPermission
-    private fun selectImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, Constants.IMAGE_PICK_CODE)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode){
-            Constants.PERMISSION_CODE -> {
-                if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    selectImageFromGallery()
-                }else{
-                    Toast.makeText(requireContext(), getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
-                }
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) ->{
+                permissionLauncher().launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+            else ->{
+                permissionLauncher().launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+
+    private fun selectImageFromGallery(): ActivityResultLauncher<String> {
+        val loadedImage = registerForActivityResult(ActivityResultContracts.GetContent(),
+            ActivityResultCallback {
+                binding.cardImageView.setImageURI(it)
+            })
+            return loadedImage
+
     }
+
 }

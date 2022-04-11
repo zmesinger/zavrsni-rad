@@ -35,4 +35,5 @@
     <string name="select_photo">Select photo</string>
     <string name="post">Post</string>
     <string name="permission_denied">Permission denied</string>
+    <string name="access_gallery">Cannot access gallery without permission!</string>
 </resources>
