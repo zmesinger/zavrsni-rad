@@ -15,12 +15,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentAddNewPhotoBinding
+import com.mesinger.spaceappxml.viewmodel.AddNewPhotoViewModel
 
 
 class AddNewPhotoFragment : Fragment() {
 
+    private val viewModel: AddNewPhotoViewModel by viewModels()
     private lateinit var binding: FragmentAddNewPhotoBinding
+
 
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission(),
         ActivityResultCallback {
@@ -45,17 +51,9 @@ class AddNewPhotoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestPermission()
+        selectImageFromGallery()
+        postImage()
     }
-
-
-    private fun initListeners(){
-        binding.selectPhotoButton.setOnClickListener(){
-           // requestPermission()
-            selectImageFromGallery()
-        }
-    }
-
-
 
     private fun requestPermission(){
 
@@ -86,10 +84,26 @@ class AddNewPhotoFragment : Fragment() {
         val loadedImage = registerForActivityResult(ActivityResultContracts.GetContent(),
             ActivityResultCallback {
                 binding.cardImageView.setImageURI(it)
+                viewModel.setImageUri(it)
+
             })
 
+        binding.selectPhotoButton.setOnClickListener(){
+            loadedImage.launch("image/*")
+        }
 
 
+
+    }
+
+    private fun postImage(){
+        binding.postPhotoButton.setOnClickListener(){
+            viewModel.uploadPost()
+            navigateToHome()
+        }
+    }
+    private fun navigateToHome(){
+        findNavController().navigate(R.id.action_addNewPhotoFragment_to_homeFragment)
     }
 
 }
