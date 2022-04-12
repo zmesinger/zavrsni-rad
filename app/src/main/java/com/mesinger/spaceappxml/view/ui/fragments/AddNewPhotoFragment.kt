@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -99,7 +100,13 @@ class AddNewPhotoFragment : Fragment() {
     private fun postImage(){
         binding.postPhotoButton.setOnClickListener(){
             viewModel.uploadPost()
-            navigateToHome()
+            if(viewModel.getPostingSuccessful()){
+                Toast.makeText(requireContext(), getString(R.string.posting_success), Toast.LENGTH_SHORT).show()
+                navigateToHome()
+            }else{
+                Toast.makeText(requireContext(), getString(R.string.posting_failure), Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
     private fun navigateToHome(){

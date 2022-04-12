@@ -18,7 +18,7 @@ class AddNewPhotoViewModel: ViewModel() {
     private var title: String = String()
     private var description: String = String()
     private var imageUri: Uri? = null
-
+    private var postingSuccessful: Boolean = false
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
 
@@ -39,6 +39,10 @@ class AddNewPhotoViewModel: ViewModel() {
         return this.imageUri
     }
 
+    fun getPostingSuccessful(): Boolean{
+        return this.postingSuccessful
+    }
+
     fun uploadPost() {
         firebaseStore = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
@@ -48,19 +52,21 @@ class AddNewPhotoViewModel: ViewModel() {
             val ref = storageReference?.child("images/" + UUID.randomUUID().toString())
             val uploadTask = ref?.putFile(imageUri!!)!!.addOnFailureListener(){
                 Log.d("AddNewPhotoViewModel", "Upload failure")
+
             }.addOnSuccessListener {
                 Log.d("AddNewPhotoViewModel", "Upload successful")
 
             }
 
-        } else{
+            postingSuccessful = true
 
+        }else{
+            postingSuccessful = false
         }
 
-        }
+    }
 
-
-        }
+}
 
 
 

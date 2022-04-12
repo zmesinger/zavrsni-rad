@@ -36,4 +36,6 @@
     <string name="post">Post</string>
     <string name="permission_denied">Permission denied</string>
     <string name="access_gallery">Cannot access gallery without permission!</string>
+    <string name="posting_success">Your image has been posted</string>
+    <string name="posting_failure">Unfortunately, your post has not been posted</string>
 </resources>
