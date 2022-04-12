@@ -5,5 +5,6 @@ import android.net.Uri
 data class UserImage(
     val title: String,
     val description: String,
-    val imageUri: Uri
+    val imageUri: Uri,
+    val username: String
 )

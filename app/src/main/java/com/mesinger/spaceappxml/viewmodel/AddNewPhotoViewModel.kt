@@ -21,8 +21,16 @@ class AddNewPhotoViewModel: ViewModel() {
     private var postingSuccessful: Boolean = false
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
+    private var username: String = String()
 
 
+    fun setUsername(username: String){
+       this.username = username
+    }
+
+    fun getUsername(): String{
+        return this.username
+    }
     fun setTitle(title: String) {
         this.title = title
     }
@@ -57,7 +65,6 @@ class AddNewPhotoViewModel: ViewModel() {
                 Log.d("AddNewPhotoViewModel", "Upload successful")
 
             }
-
             postingSuccessful = true
 
         }else{
