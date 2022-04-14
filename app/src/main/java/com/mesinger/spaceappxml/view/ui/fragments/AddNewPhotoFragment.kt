@@ -11,10 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -53,6 +54,8 @@ class AddNewPhotoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requestPermission()
         selectImageFromGallery()
+        setTitle()
+        setDescription()
         postImage()
     }
 
@@ -81,6 +84,8 @@ class AddNewPhotoFragment : Fragment() {
     }
 
 
+
+
     private fun selectImageFromGallery() {
         val loadedImage = registerForActivityResult(ActivityResultContracts.GetContent(),
             ActivityResultCallback {
@@ -99,7 +104,7 @@ class AddNewPhotoFragment : Fragment() {
 
     private fun postImage(){
         binding.postPhotoButton.setOnClickListener(){
-            viewModel.uploadPost()
+            viewModel.uploadImageToCloudStorage()
             if(viewModel.getPostingSuccessful()){
                 Toast.makeText(requireContext(), getString(R.string.posting_success), Toast.LENGTH_SHORT).show()
                 navigateToHome()
@@ -112,5 +117,19 @@ class AddNewPhotoFragment : Fragment() {
     private fun navigateToHome(){
         findNavController().navigate(R.id.action_addNewPhotoFragment_to_homeFragment)
     }
+
+    private fun setTitle() {
+        binding.titleEditText.doAfterTextChanged {
+            viewModel.setTitle(it.toString())
+        }
+    }
+
+    private fun setDescription(){
+        binding.descriptionEditText.doAfterTextChanged {
+            viewModel.setDescription(it.toString())
+        }
+    }
+
+
 
 }

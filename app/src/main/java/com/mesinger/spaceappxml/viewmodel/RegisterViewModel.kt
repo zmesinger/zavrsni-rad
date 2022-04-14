@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.mesinger.spaceappxml.service.model.User
 
 class RegisterViewModel : ViewModel() {
     private lateinit var auth: FirebaseAuth
+    private var db = Firebase.firestore
 
     private val _name: MutableLiveData<String> = MutableLiveData()
     private val _email: MutableLiveData<String> = MutableLiveData()
@@ -39,6 +42,8 @@ class RegisterViewModel : ViewModel() {
 
                 val firebaseUser: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
                 val user = User(firebaseUser.uid, _name.value.toString(), firebaseUser.email!!)
+                addUserToFirestore(user)
+
                 Log.d("RegisterViewModel", "registerSuccess")
             }else{
                 Log.d("RegisterViewModel", "registerFailure")
@@ -51,6 +56,16 @@ class RegisterViewModel : ViewModel() {
         FirebaseAuth.getInstance().signOut()
     }
 
+    private fun addUserToFirestore(userInfo: User){
+        db.collection("users")
+            .add(userInfo)
+            .addOnSuccessListener { documentReference ->
+                Log.d("RegisterViewModel", "DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener{ e ->
+                Log.w("RegisterViewModel", "Error adding user", e)
+            }
+    }
 
 }
 
