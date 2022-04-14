@@ -22,5 +22,19 @@ class Firestore {
         return userID
     }
 
+    fun getAllPosts(){
+        db.collection("posts")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d("Firestore", "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("Firestore", "Error getting documents: ", exception)
+            }
+
+    }
+
     
 }

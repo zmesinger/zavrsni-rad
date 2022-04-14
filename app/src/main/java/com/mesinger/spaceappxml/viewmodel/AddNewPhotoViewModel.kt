@@ -8,7 +8,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.mesinger.spaceappxml.firebase.Firestore
-import com.mesinger.spaceappxml.service.model.UserImage
+import com.mesinger.spaceappxml.service.model.Post
 import java.util.*
 
 class AddNewPhotoViewModel: ViewModel() {
@@ -70,7 +70,7 @@ class AddNewPhotoViewModel: ViewModel() {
                 val result = it.metadata!!.reference!!.downloadUrl
                 result.addOnSuccessListener {
                     var imageLink = it.toString()
-                    val post = UserImage(this.title,this.description, imageLink, firebaseAuth.getCurrentUser())
+                    val post = Post(this.title,this.description, imageLink, firebaseAuth.getCurrentUser())
                     uploadPost(post)
                     Log.d("AddNewPhotoViewModel", "Upload post successful")
                 }
@@ -86,7 +86,7 @@ class AddNewPhotoViewModel: ViewModel() {
 
     }
 
-    private fun uploadPost(post: UserImage){
+    private fun uploadPost(post: Post){
 
         db.collection("posts")
             .add(post)
