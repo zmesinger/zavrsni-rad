@@ -7,7 +7,7 @@ import com.mesinger.spaceappxml.service.model.Post
 
 class HomeViewModel(val repo: FirebaseRepository) : ViewModel() {
 
-    private var firestoredb = FirebaseRepository()
+
 
 
     private var postsList: MutableLiveData<List<Post>> = MutableLiveData()

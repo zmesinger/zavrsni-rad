@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
-import com.mesinger.spaceappxml.firebase.FirebaseAuth
+import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.User
 
-class RegisterViewModel(private val repo: FirebaseRepository, private val auth: FirebaseAuth) : ViewModel() {
+class RegisterViewModel(private val repo: FirebaseRepository, private val authentication: FirebaseAuthentication) : ViewModel() {
 
 
 
@@ -36,10 +36,10 @@ class RegisterViewModel(private val repo: FirebaseRepository, private val auth: 
 
     fun register(){
 
-        auth.getAuth().createUserWithEmailAndPassword(_email.value.toString(), _password.value.toString()).addOnCompleteListener { task ->
+        authentication.getAuth().createUserWithEmailAndPassword(_email.value.toString(), _password.value.toString()).addOnCompleteListener { task ->
             if(task.isSuccessful){
 
-                val firebaseUser: FirebaseUser = auth.getCurrentUserInfo()
+                val firebaseUser: FirebaseUser = authentication.getCurrentUserInfo()
                 val user = User(firebaseUser.uid, _name.value.toString(), firebaseUser.email!!)
                 addUserToFirestore(user)
 
@@ -52,7 +52,7 @@ class RegisterViewModel(private val repo: FirebaseRepository, private val auth: 
     }
 
     fun signOut(){
-        auth.signOut()
+        authentication.signOut()
     }
 
     private fun addUserToFirestore(userInfo: User){

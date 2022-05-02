@@ -1,6 +1,7 @@
 package com.mesinger.spaceappxml.di
-
-import com.mesinger.spaceappxml.firebase.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.User
 import com.mesinger.spaceappxml.viewmodel.AddNewPhotoViewModel
@@ -10,10 +11,23 @@ import com.mesinger.spaceappxml.viewmodel.SignInViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val firebaseModule = module {
-        single { FirebaseRepository() }
-        single { FirebaseAuth() }
+
+val databaseModule = module {
+    fun provideDatabase() : FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
     }
+    single<FirebaseRepository> { FirebaseRepository(provideDatabase()) }
+}
+
+val authModule = module {
+    fun provideAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
+
+    single<FirebaseAuthentication>{ FirebaseAuthentication(provideAuth()) }
+}
+
+
 
     val dataModule = module {
         single { User(get()) }

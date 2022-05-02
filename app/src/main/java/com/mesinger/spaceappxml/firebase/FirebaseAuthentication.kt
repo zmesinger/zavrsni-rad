@@ -6,9 +6,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class FirebaseAuth {
+class FirebaseAuthentication(private val auth: FirebaseAuth) {
 
-    private val auth = Firebase.auth
+
 
     fun getAuth(): FirebaseAuth {
         return auth;

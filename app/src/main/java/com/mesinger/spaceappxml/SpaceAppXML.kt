@@ -1,9 +1,7 @@
 package com.mesinger.spaceappxml
 
 import android.app.Application
-import com.mesinger.spaceappxml.di.dataModule
-import com.mesinger.spaceappxml.di.firebaseModule
-import com.mesinger.spaceappxml.di.viewModelModule
+import com.mesinger.spaceappxml.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -19,8 +17,9 @@ class SpaceAppXML: Application() {
             androidContext(this@SpaceAppXML)
             modules(
                 viewModelModule,
-                firebaseModule,
-                dataModule
+                dataModule,
+                authModule,
+                databaseModule
             )
         }
 

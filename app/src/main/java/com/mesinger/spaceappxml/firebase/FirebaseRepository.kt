@@ -7,9 +7,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class FirebaseRepository {
+class FirebaseRepository(private val db: FirebaseFirestore) {
 
-    private val db = Firebase.firestore
+
 
     fun getFirestore(): FirebaseFirestore {
         return Firebase.firestore

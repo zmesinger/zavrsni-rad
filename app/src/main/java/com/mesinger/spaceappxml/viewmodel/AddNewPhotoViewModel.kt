@@ -3,16 +3,12 @@ package com.mesinger.spaceappxml.viewmodel
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.mesinger.spaceappxml.firebase.FirebaseAuth
+import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.Post
 import java.util.*
 
-class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val auth: FirebaseAuth): ViewModel() {
+class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val authentication: FirebaseAuthentication): ViewModel() {
 
 
     private var title: String = String()
@@ -68,7 +64,7 @@ class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val aut
                 val result = it.metadata!!.reference!!.downloadUrl
                 result.addOnSuccessListener {
                     var imageLink = it.toString()
-                    val post = Post(this.title,this.description, imageLink, auth.getCurrentUserUID())
+                    val post = Post(this.title,this.description, imageLink, authentication.getCurrentUserUID())
                     uploadPost(post)
                     Log.d("AddNewPhotoViewModel", "Upload post successful")
                 }
