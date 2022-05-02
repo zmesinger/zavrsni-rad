@@ -45,7 +45,7 @@ class AddNewPhotoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddNewPhotoBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -60,7 +60,7 @@ class AddNewPhotoFragment : Fragment() {
 
     private fun requestPermission(){
 
-        binding.selectPhotoButton.setOnClickListener() {
+        binding.selectPhotoButton.setOnClickListener {
 
             when {
                 checkSelfPermission(
@@ -93,7 +93,7 @@ class AddNewPhotoFragment : Fragment() {
 
             })
 
-        binding.selectPhotoButton.setOnClickListener(){
+        binding.selectPhotoButton.setOnClickListener {
             loadedImage.launch("image/*")
         }
 
@@ -102,7 +102,7 @@ class AddNewPhotoFragment : Fragment() {
     }
 
     private fun postImage(){
-        binding.postPhotoButton.setOnClickListener(){
+        binding.postPhotoButton.setOnClickListener {
             viewModel.uploadImageToCloudStorage()
             if(viewModel.getPostingSuccessful()){
                 Toast.makeText(requireContext(), getString(R.string.posting_success), Toast.LENGTH_SHORT).show()

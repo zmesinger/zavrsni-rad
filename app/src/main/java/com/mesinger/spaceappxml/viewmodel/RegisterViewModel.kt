@@ -4,16 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.mesinger.spaceappxml.firebase.FirebaseAuth
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.User
 
-class RegisterViewModel(val repo: FirebaseRepository) : ViewModel() {
-    private lateinit var auth: FirebaseAuth
-    private var db = Firebase.firestore
+class RegisterViewModel(private val repo: FirebaseRepository, private val auth: FirebaseAuth) : ViewModel() {
+
+
 
     private val _name: MutableLiveData<String> = MutableLiveData()
     private val _email: MutableLiveData<String> = MutableLiveData()
@@ -37,11 +35,11 @@ class RegisterViewModel(val repo: FirebaseRepository) : ViewModel() {
 
 
     fun register(){
-        auth = FirebaseAuth.getInstance()
-        auth.createUserWithEmailAndPassword(_email.value.toString(), _password.value.toString()).addOnCompleteListener { task ->
+
+        auth.getAuth().createUserWithEmailAndPassword(_email.value.toString(), _password.value.toString()).addOnCompleteListener { task ->
             if(task.isSuccessful){
 
-                val firebaseUser: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
+                val firebaseUser: FirebaseUser = auth.getCurrentUserInfo()
                 val user = User(firebaseUser.uid, _name.value.toString(), firebaseUser.email!!)
                 addUserToFirestore(user)
 
@@ -54,11 +52,11 @@ class RegisterViewModel(val repo: FirebaseRepository) : ViewModel() {
     }
 
     fun signOut(){
-        FirebaseAuth.getInstance().signOut()
+        auth.signOut()
     }
 
     private fun addUserToFirestore(userInfo: User){
-        db.collection("users")
+        repo.getFirestore().collection("users")
             .add(userInfo)
             .addOnSuccessListener { documentReference ->
                 Log.d("RegisterViewModel", "DocumentSnapshot added with ID: ${documentReference.id}")

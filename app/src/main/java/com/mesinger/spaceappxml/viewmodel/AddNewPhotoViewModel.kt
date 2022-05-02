@@ -7,13 +7,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.mesinger.spaceappxml.firebase.FirebaseAuth
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.Post
 import java.util.*
 
-class AddNewPhotoViewModel(val repo: FirebaseRepository): ViewModel() {
-    private val db = Firebase.firestore
-    private val firebaseAuth = FirebaseRepository()
+class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val auth: FirebaseAuth): ViewModel() {
+
 
     private var title: String = String()
     private var description: String = String()
@@ -22,8 +22,6 @@ class AddNewPhotoViewModel(val repo: FirebaseRepository): ViewModel() {
 
     private var postingSuccessful: Boolean = false
 
-    private var firebaseStore: FirebaseStorage? = null
-    private var storageReference: StorageReference? = null
 
 
 
@@ -55,22 +53,22 @@ class AddNewPhotoViewModel(val repo: FirebaseRepository): ViewModel() {
     }
 
     fun uploadImageToCloudStorage() {
-        firebaseStore = FirebaseStorage.getInstance()
-        storageReference = FirebaseStorage.getInstance().reference
+
+       val storageReference = repo.getReference()
 
 
         if (imageUri != null) {
 
-            val ref = storageReference?.child("images/" + UUID.randomUUID().toString())
+            val ref = storageReference.child("images/" + UUID.randomUUID().toString())
 
-            val uploadTask = ref?.putFile(imageUri!!)!!.addOnFailureListener(){
+            val uploadTask = ref.putFile(imageUri!!)!!.addOnFailureListener(){
                 Log.d("AddNewPhotoViewModel", "Upload failure")
 
             }.addOnSuccessListener { it ->
                 val result = it.metadata!!.reference!!.downloadUrl
                 result.addOnSuccessListener {
                     var imageLink = it.toString()
-                    val post = Post(this.title,this.description, imageLink, firebaseAuth.getCurrentUser())
+                    val post = Post(this.title,this.description, imageLink, auth.getCurrentUserUID())
                     uploadPost(post)
                     Log.d("AddNewPhotoViewModel", "Upload post successful")
                 }
@@ -88,7 +86,8 @@ class AddNewPhotoViewModel(val repo: FirebaseRepository): ViewModel() {
 
     private fun uploadPost(post: Post){
 
-        db.collection("posts")
+        repo.getFirestore()
+            .collection("posts")
             .add(post)
 
     }
