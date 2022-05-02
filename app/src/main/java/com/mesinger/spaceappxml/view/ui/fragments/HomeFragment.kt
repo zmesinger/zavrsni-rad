@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentHomeBinding
 
+
 class HomeFragment: Fragment() {
 
     private lateinit var binding: FragmentHomeBinding

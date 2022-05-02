@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.mesinger.spaceappxml.firebase.FirebaseRepository
 
-class SignInViewModel : ViewModel() {
+class SignInViewModel(val repo: FirebaseRepository) : ViewModel() {
     private lateinit var mAuth: FirebaseAuth
 
     private val _user: MutableLiveData<Boolean> = MutableLiveData(false)

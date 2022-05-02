@@ -8,9 +8,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.User
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(val repo: FirebaseRepository) : ViewModel() {
     private lateinit var auth: FirebaseAuth
     private var db = Firebase.firestore
 

@@ -2,12 +2,12 @@ package com.mesinger.spaceappxml.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mesinger.spaceappxml.firebase.Firestore
+import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.Post
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(val repo: FirebaseRepository) : ViewModel() {
 
-    private var firestoredb = Firestore()
+    private var firestoredb = FirebaseRepository()
 
 
     private var postsList: MutableLiveData<List<Post>> = MutableLiveData()

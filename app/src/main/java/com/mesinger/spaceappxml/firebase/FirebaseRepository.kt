@@ -2,18 +2,23 @@ package com.mesinger.spaceappxml.firebase
 
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.*
 import com.google.firebase.ktx.Firebase
 
-class Firestore {
+class FirebaseRepository {
 
     private val db = Firebase.firestore
     private val auth = Firebase.auth
 
+    fun getFirestore(): FirebaseFirestore {
+        return Firebase.firestore
+    }
+
 
     fun getCurrentUser(): String {
         val user = auth.currentUser
-        var userID: String = String()
+        var userID = String()
         if(user != null){
             userID = user.uid
         }else{

@@ -15,18 +15,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentAddNewPhotoBinding
 import com.mesinger.spaceappxml.viewmodel.AddNewPhotoViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class AddNewPhotoFragment : Fragment() {
 
-    private val viewModel: AddNewPhotoViewModel by viewModels()
+    private val viewModel: AddNewPhotoViewModel by viewModel()
     private lateinit var binding: FragmentAddNewPhotoBinding
 
 

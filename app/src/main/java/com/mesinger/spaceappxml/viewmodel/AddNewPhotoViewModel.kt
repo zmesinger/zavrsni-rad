@@ -7,13 +7,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.mesinger.spaceappxml.firebase.Firestore
+import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.Post
 import java.util.*
 
-class AddNewPhotoViewModel: ViewModel() {
+class AddNewPhotoViewModel(val repo: FirebaseRepository): ViewModel() {
     private val db = Firebase.firestore
-    private val firebaseAuth = Firestore()
+    private val firebaseAuth = FirebaseRepository()
 
     private var title: String = String()
     private var description: String = String()
