@@ -1,14 +1,18 @@
 package com.mesinger.spaceappxml.firebase
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.mesinger.spaceappxml.service.model.Post
 
 class FirebaseRepository(private val db: FirebaseFirestore) {
 
+    private val posts: MutableLiveData<List<Post>> = MutableLiveData()
 
 
     fun getFirestore(): FirebaseFirestore {
@@ -22,18 +26,22 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
 
 
-    fun getAllPosts(){
-        db.collection("posts")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("Firestore", "${document.id} => ${document.data}")
+    fun getAllPosts(): LiveData<List<Post>>{
+        if(posts.value == null) {
+            db.collection("posts")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        posts.postValue(document.toObject())
+                        Log.d("Firestore", "${document.id} => ${document.data}")
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("Firestore", "Error getting documents: ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.d("Firestore", "Error getting documents: ", exception)
+                }
+        }
 
+        return posts
     }
 
     
