@@ -16,7 +16,7 @@ val databaseModule = module {
     fun provideDatabase() : FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }
-    single<FirebaseRepository> { FirebaseRepository(provideDatabase()) }
+    single { FirebaseRepository(provideDatabase()) }
 }
 
 val authModule = module {
@@ -24,7 +24,7 @@ val authModule = module {
         return FirebaseAuth.getInstance()
     }
 
-    single<FirebaseAuthentication>{ FirebaseAuthentication(provideAuth()) }
+    single { FirebaseAuthentication(provideAuth()) }
 }
 
 

@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.mesinger.spaceappxml.firebase.FirebaseRepository
+import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 
-class SignInViewModel(private val auth: FirebaseAuth) : ViewModel() {
+class SignInViewModel(private val auth: FirebaseAuthentication) : ViewModel() {
 
 
     private val _user: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -35,7 +34,7 @@ class SignInViewModel(private val auth: FirebaseAuth) : ViewModel() {
 
     fun singIn(){
 
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+        auth.getAuth().signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful){
                 _user.value = true
                 Log.d("SignInViewModel", "singIn: success")

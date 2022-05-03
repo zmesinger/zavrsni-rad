@@ -4,36 +4,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.ItemCardBinding
 import com.mesinger.spaceappxml.service.model.Post
 
-class PostsListAdapter: RecyclerView.Adapter<PostsListAdapter.PostsViewHolder>() {
-    private var posts = mutableListOf<Post>()
+class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
+    private val posts = mutableListOf<Post>()
 
-    private fun setPostList(posts: List<Post>){
-        this.posts = posts.toMutableList()
-        notifyDataSetChanged()
+    fun setPosts(posts: List<Post>){
+        this.posts.clear()
+        this.posts.addAll(posts)
+        this.notifyDataSetChanged()
     }
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemCardBinding.inflate(inflater, parent, false)
-        return PostsViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_card, parent, false)
+
+        return PostsViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val post = posts[position]
-
+        holder.bind(post)
     }
-
 
     override fun getItemCount(): Int {
-        return posts.size
-    }
-
-    class PostsViewHolder(val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root){
-
+       return posts.count()
     }
 
 
