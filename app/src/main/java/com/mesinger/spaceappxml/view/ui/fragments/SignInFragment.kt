@@ -10,6 +10,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentSignInBinding
 import com.mesinger.spaceappxml.viewmodel.SignInViewModel
