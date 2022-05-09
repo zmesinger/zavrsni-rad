@@ -31,10 +31,7 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
             db.collection("posts")
                 .get()
                 .addOnSuccessListener { result ->
-                    for (document in result) {
-                        posts.postValue(document.toObject())
-                        Log.d("Firestore", "${document.id} => ${document.data}")
-                    }
+                    posts.postValue(result.toObjects(Post::class.java))
                 }
                 .addOnFailureListener { exception ->
                     Log.d("Firestore", "Error getting documents: ", exception)

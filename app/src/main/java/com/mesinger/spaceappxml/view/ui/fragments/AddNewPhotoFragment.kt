@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentAddNewPhotoBinding
+import com.mesinger.spaceappxml.view.adapter.PostsListAdapter
 import com.mesinger.spaceappxml.viewmodel.AddNewPhotoViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,6 +28,7 @@ class AddNewPhotoFragment : Fragment() {
 
     private val viewModel: AddNewPhotoViewModel by viewModel()
     private lateinit var binding: FragmentAddNewPhotoBinding
+
 
 
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission(),
