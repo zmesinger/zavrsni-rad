@@ -11,7 +11,7 @@ class PostsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
 
 
-    private val user: FirebaseAuth = FirebaseAuth.getInstance()
+
     fun bind(post: Post){
         val binding = ItemCardBinding.bind(itemView)
         binding.titleTextView.text = post.title
