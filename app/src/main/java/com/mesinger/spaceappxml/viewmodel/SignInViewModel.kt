@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseUser
 import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 
 class SignInViewModel(private val auth: FirebaseAuthentication) : ViewModel() {
@@ -31,6 +32,10 @@ class SignInViewModel(private val auth: FirebaseAuthentication) : ViewModel() {
     fun setPassword(password: String){
         this.password = password
     }
+    fun checkIfUserLoggedIn(): Boolean{
+        val firebaseUser: FirebaseUser? = auth.getAuth().currentUser
+        return firebaseUser != null
+    }
 
     fun singIn(){
 
@@ -46,6 +51,8 @@ class SignInViewModel(private val auth: FirebaseAuthentication) : ViewModel() {
         }
 
     }
+
+
 
 
 

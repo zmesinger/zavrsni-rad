@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.ktx.Firebase
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentSignInBinding
 import com.mesinger.spaceappxml.viewmodel.SignInViewModel
@@ -34,15 +35,26 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         super.onViewCreated(view, savedInstanceState)
 
         navigateToRegister()
-        validateSignInInfo()
+
         getEmail()
         getPassword()
-        singInUser()
+        checkIfUserLoggedIn()
 
     }
 
     private fun navigateToRegister(){
         binding.registerButton.setOnClickListener { findNavController().navigate(R.id.action_signInFragment_to_registerFragment2) }
+    }
+
+    private fun checkIfUserLoggedIn(){
+        val user: Boolean = viewModel.checkIfUserLoggedIn()
+        if(user != null){
+            singInUser()
+            validateSignInInfo()
+        }else{
+            validateSignInInfo()
+
+        }
     }
 
     private fun validateSignInInfo(){
@@ -73,6 +85,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             }
         })
     }
+
+
+
 
 
     private fun getEmail() = binding.signInEmailTextField.doOnTextChanged() {newEmail, _, _, _ -> viewModel.setEmail(newEmail.toString()) }
