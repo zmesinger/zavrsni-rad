@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.Post
+import org.koin.core.component.getScopeName
 import java.util.*
 
 class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val authentication: FirebaseAuthentication): ViewModel() {
@@ -55,6 +56,7 @@ class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val aut
 
         if (imageUri != null) {
 
+            val userEmail: String = authentication.getCurrentUserInfo().email.toString()
             val ref = storageReference.child("images/" + UUID.randomUUID().toString())
 
             val uploadTask = ref.putFile(imageUri!!)!!.addOnFailureListener(){
@@ -64,7 +66,7 @@ class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val aut
                 val result = it.metadata!!.reference!!.downloadUrl
                 result.addOnSuccessListener {
                     var imageLink = it.toString()
-                    val post = Post(this.title,this.description, imageLink, authentication.getCurrentUserUID())
+                    val post = Post(this.title,this.description, imageLink, userEmail)
                     uploadPost(post)
                     Log.d("AddNewPhotoViewModel", "Upload post successful")
                 }

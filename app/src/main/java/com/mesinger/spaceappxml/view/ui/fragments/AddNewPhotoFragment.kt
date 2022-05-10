@@ -29,8 +29,6 @@ class AddNewPhotoFragment : Fragment() {
     private val viewModel: AddNewPhotoViewModel by viewModel()
     private lateinit var binding: FragmentAddNewPhotoBinding
 
-
-
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission(),
         ActivityResultCallback {
                 isGranted: Boolean ->
@@ -109,6 +107,7 @@ class AddNewPhotoFragment : Fragment() {
             if(viewModel.getPostingSuccessful()){
                 Toast.makeText(requireContext(), getString(R.string.posting_success), Toast.LENGTH_SHORT).show()
                 navigateToHome()
+
             }else{
                 Toast.makeText(requireContext(), getString(R.string.posting_failure), Toast.LENGTH_SHORT).show()
             }

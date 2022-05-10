@@ -28,15 +28,19 @@ class HomeFragment: Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setupRecyclerView()
+        loadData()
 
+
+        return binding.root
+    }
+
+    private fun loadData(){
         viewModel.posts.observe(viewLifecycleOwner){
             if( it != null && it.isNotEmpty()){
                 adapter.setPosts(it)
             }
         }
 
-
-        return binding.root
     }
 
     private fun setupRecyclerView() {
