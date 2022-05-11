@@ -4,10 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.User
-import com.mesinger.spaceappxml.viewmodel.AddNewPhotoViewModel
-import com.mesinger.spaceappxml.viewmodel.HomeViewModel
-import com.mesinger.spaceappxml.viewmodel.RegisterViewModel
-import com.mesinger.spaceappxml.viewmodel.SignInViewModel
+import com.mesinger.spaceappxml.viewmodel.*
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -38,6 +35,7 @@ val authModule = module {
         viewModel { HomeViewModel(get()) }
         viewModel { RegisterViewModel(get(), get()) }
         viewModel { SignInViewModel(get()) }
+        viewModel { PostDetailViewModel(get(), get()) }
     }
 
 
