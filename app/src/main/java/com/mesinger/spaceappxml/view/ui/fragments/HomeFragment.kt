@@ -14,7 +14,7 @@ import com.mesinger.spaceappxml.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeFragment: Fragment() {
+class HomeFragment: Fragment(), OnPostEventListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: PostsListAdapter
@@ -64,6 +64,8 @@ class HomeFragment: Fragment() {
         }
     }
 
+    override fun onTaskSelected(id: String?) {
+    }
 
 
 }
