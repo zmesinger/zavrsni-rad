@@ -1,9 +1,44 @@
 package com.mesinger.spaceappxml.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
+import com.mesinger.spaceappxml.service.model.Post
+import org.koin.androidx.compose.get
 
 class PostDetailViewModel(private val repo: FirebaseRepository, private val authentication: FirebaseAuthentication) : ViewModel() {
-    
+
+    private var _user: MutableLiveData<String> = MutableLiveData()
+    private var _content: MutableLiveData<String> = MutableLiveData()
+    private var _postID: MutableLiveData<String> = MutableLiveData()
+
+    val user: LiveData<String> get() = _user
+    val content: LiveData<String> get() = _content
+    val postID: LiveData<String> get() = _postID
+
+    fun setUser(user: String){
+        this._user.value = user
+    }
+
+    fun setContent(content: String){
+        this._content.value = content
+    }
+
+    fun setPostID(postID: String){
+        this._postID.value = postID
+    }
+
+    fun getUserEmail(): String {
+        return authentication.getCurrentUserInfo().email.toString()
+    }
+
+    fun getPost(){
+        repo.getPostByID(postID.value.toString())
+
+    }
+
+
+
 }

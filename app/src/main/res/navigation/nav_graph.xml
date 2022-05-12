@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_homeFragment_to_addNewPhotoFragment"
             app:destination="@id/addNewPhotoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPhotoFragment"
@@ -42,6 +45,15 @@
         tools:layout="@layout/fragment_add_new_photo" >
         <action
             android:id="@+id/action_addNewPhotoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="com.mesinger.spaceappxml.view.ui.fragments.PostDetailFragment"
+        android:label="fragment_post_detail"
+        tools:layout="@layout/fragment_post_detail" >
+        <action
+            android:id="@+id/action_postDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
