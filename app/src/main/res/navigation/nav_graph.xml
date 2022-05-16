@@ -55,5 +55,9 @@
         <action
             android:id="@+id/action_postDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="postID"
+            app:argType="string"
+            />
     </fragment>
 </navigation>

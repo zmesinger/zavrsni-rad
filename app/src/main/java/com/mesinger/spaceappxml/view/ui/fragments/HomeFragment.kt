@@ -51,6 +51,7 @@ class HomeFragment: Fragment(), OnPostEventListener {
             false
         )
         adapter = PostsListAdapter()
+        adapter.onPostEventListener = this
         binding.HomeRecyclerView.adapter = adapter
     }
 
@@ -65,8 +66,11 @@ class HomeFragment: Fragment(), OnPostEventListener {
         }
     }
 
+
+
     override fun onItemSelectedListener(id: String?) {
-        findNavController().navigate(R.id.action_homeFragment_to_postDetailFragment)
+        val action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(id.toString())
+        findNavController().navigate(action)
     }
 
 

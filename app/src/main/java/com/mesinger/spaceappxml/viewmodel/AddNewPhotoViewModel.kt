@@ -3,6 +3,7 @@ package com.mesinger.spaceappxml.viewmodel
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.DocumentReference
 import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.Post
@@ -12,6 +13,7 @@ import java.util.*
 class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val authentication: FirebaseAuthentication): ViewModel() {
 
 
+    private var postID: String = String()
     private var title: String = String()
     private var description: String = String()
     private var imageUri: Uri? = null
@@ -59,14 +61,14 @@ class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val aut
             val userEmail: String = authentication.getCurrentUserInfo().email.toString()
             val ref = storageReference.child("images/" + UUID.randomUUID().toString())
 
+            postID = repo.getFirestore().collection("posts").document().id
             val uploadTask = ref.putFile(imageUri!!).addOnFailureListener(){
                 Log.d("AddNewPhotoViewModel", "Upload failure")
-
             }.addOnSuccessListener { it ->
                 val result = it.metadata!!.reference!!.downloadUrl
                 result.addOnSuccessListener {
                     var imageLink = it.toString()
-                    val post = Post(this.title,this.description, imageLink, userEmail)
+                    val post = Post(this.postID ,this.title,this.description, imageLink, userEmail)
                     uploadPost(post)
                     Log.d("AddNewPhotoViewModel", "Upload post successful")
                 }
@@ -87,6 +89,8 @@ class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val aut
         repo.getFirestore()
             .collection("posts")
             .add(post)
+
+
 
     }
 
