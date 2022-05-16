@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentHomeBinding
+import com.mesinger.spaceappxml.view.adapter.OnPostEventListener
 import com.mesinger.spaceappxml.view.adapter.PostsListAdapter
 import com.mesinger.spaceappxml.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -64,7 +65,8 @@ class HomeFragment: Fragment(), OnPostEventListener {
         }
     }
 
-    override fun onTaskSelected(id: String?) {
+    override fun onItemSelectedListener(id: String?) {
+        findNavController().navigate(R.id.action_homeFragment_to_postDetailFragment)
     }
 
 

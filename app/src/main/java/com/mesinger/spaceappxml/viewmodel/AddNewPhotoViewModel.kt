@@ -59,7 +59,7 @@ class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val aut
             val userEmail: String = authentication.getCurrentUserInfo().email.toString()
             val ref = storageReference.child("images/" + UUID.randomUUID().toString())
 
-            val uploadTask = ref.putFile(imageUri!!)!!.addOnFailureListener(){
+            val uploadTask = ref.putFile(imageUri!!).addOnFailureListener(){
                 Log.d("AddNewPhotoViewModel", "Upload failure")
 
             }.addOnSuccessListener { it ->

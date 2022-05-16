@@ -10,6 +10,7 @@ import com.mesinger.spaceappxml.service.model.Post
 
 class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
     private val posts = mutableListOf<Post>()
+    var onPostEventListener: OnPostEventListener? = null
 
     fun setPosts(posts: List<Post>){
         this.posts.clear()
@@ -29,6 +30,11 @@ class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val post = posts[position]
         holder.bind(post)
+
+        onPostEventListener?.let { listener ->
+            holder.itemView.setOnClickListener{ listener.onItemSelectedListener(post.postID) }
+        }
+
     }
 
     override fun getItemCount(): Int {
