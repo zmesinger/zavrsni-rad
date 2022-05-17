@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
-import com.mesinger.spaceappxml.R
+import androidx.lifecycle.LiveData
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.mesinger.spaceappxml.databinding.FragmentPostDetailBinding
+import com.mesinger.spaceappxml.service.model.Post
 import com.mesinger.spaceappxml.viewmodel.PostDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -16,15 +19,7 @@ class PostDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentPostDetailBinding
     private val viewModel: PostDetailViewModel by viewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-        setContent()
-
-
-    }
+    private val args: PostDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +27,17 @@ class PostDetailFragment : Fragment() {
     ): View? {
         binding = FragmentPostDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val post = viewModel.getPostByID(args.postID)
+        displayData(post)
+
+    }
+
+    private fun displayData(post: LiveData<Post>){
+        
     }
 
 

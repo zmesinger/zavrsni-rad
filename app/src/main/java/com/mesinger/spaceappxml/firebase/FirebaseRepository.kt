@@ -12,9 +12,9 @@ import com.mesinger.spaceappxml.service.model.Post
 
 class FirebaseRepository(private val db: FirebaseFirestore) {
 
-    private val posts: MutableLiveData<List<Post>> = MutableLiveData()
-    private val post: MutableLiveData<Post> = MutableLiveData()
 
+    private val posts: MutableLiveData<List<Post>> = MutableLiveData()
+    private lateinit var post: MutableList<Post>
 
     fun getFirestore(): FirebaseFirestore {
         return Firebase.firestore
@@ -42,20 +42,18 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return posts
     }
 
-    fun getPostByID(postID: String): LiveData<Post> {
-        db.collection("posts")
-            .document(postID)
-            .get()
-            .addOnSuccessListener { document ->
-                if(document != null){
-                    post.postValue(document.toObject(Post::class.java))
-                    Log.d("FirebaseRepository", "DocumentSnapshot data: ${document.data}")
-                }else{
-                    Log.d("FirebaseRepository", "No such document")
-                }
+    fun getPostByID(postID: String): MutableList<Post> {
 
+        db.collection("posts")
+            .whereEqualTo("postID", postID)
+            .get()
+            .addOnSuccessListener { result ->
+                post = result.toObjects(Post::class.java)
             }
+
         return post
+
+
     }
 
 

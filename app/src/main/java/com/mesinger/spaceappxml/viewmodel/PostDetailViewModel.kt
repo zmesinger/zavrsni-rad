@@ -12,8 +12,10 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
     private var _user: MutableLiveData<String> = MutableLiveData()
     private var _content: MutableLiveData<String> = MutableLiveData()
     private var _postID: MutableLiveData<String> = MutableLiveData()
+    private var _post: MutableLiveData<Post> = MutableLiveData()
 
 
+    private val post: LiveData<Post> get() = _post
     private val user: LiveData<String> get() = _user
     private val content: LiveData<String> get() = _content
     private val postID: LiveData<String> get() = _postID
@@ -32,6 +34,13 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
 
     fun getUserEmail(): String {
         return authentication.getCurrentUserInfo().email.toString()
+    }
+
+    fun getPostByID(postID: String): LiveData<Post> {
+
+        postID.let { _post = repo.getPostByID(postID) as MutableLiveData<Post> }
+
+        return post
     }
 
 
