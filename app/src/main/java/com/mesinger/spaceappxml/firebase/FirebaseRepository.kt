@@ -14,7 +14,7 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
 
     private val posts: MutableLiveData<List<Post>> = MutableLiveData()
-    private lateinit var post: MutableList<Post>
+    private var post: MutableLiveData<List<Post>> = MutableLiveData()
 
     fun getFirestore(): FirebaseFirestore {
         return Firebase.firestore
@@ -42,13 +42,13 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return posts
     }
 
-    fun getPostByID(postID: String): MutableList<Post> {
+    fun getPostByID(postID: String):  LiveData<List<Post>>{
 
-        db.collection("posts")
+        val addOnSuccessListener = db.collection("posts")
             .whereEqualTo("postID", postID)
             .get()
             .addOnSuccessListener { result ->
-                post = result.toObjects(Post::class.java)
+                post.postValue(result.toObjects(Post::class.java))
             }
 
         return post

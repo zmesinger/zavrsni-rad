@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mesinger.spaceappxml.databinding.FragmentPostDetailBinding
@@ -37,7 +38,14 @@ class PostDetailFragment : Fragment() {
     }
 
     private fun displayData(post: LiveData<Post>){
-        
+        post.observe(viewLifecycleOwner) { newPost ->
+            binding.titleTextView.text = newPost.title
+            binding.descriptionTextViw.text = newPost.description
+            binding.userTextView.text = newPost.userEmail
+            Glide.with(requireContext())
+                .load(newPost.imageURL)
+                .into(binding.cardImageView)
+        }
     }
 
 
