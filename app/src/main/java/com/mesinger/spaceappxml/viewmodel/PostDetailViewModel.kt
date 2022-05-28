@@ -38,7 +38,7 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
 
     fun getPostByID(postID: String): LiveData<Post> {
 
-        postID.let { _post = repo.getPostByID(postID) as MutableLiveData<Post> }
+
 
         return post
     }

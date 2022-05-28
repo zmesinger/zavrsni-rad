@@ -40,6 +40,7 @@ class HomeFragment: Fragment(), OnPostEventListener {
             if( it != null && it.isNotEmpty()){
                 adapter.setPosts(it)
             }
+
         }
 
     }

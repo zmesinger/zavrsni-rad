@@ -9,10 +9,8 @@ import com.mesinger.spaceappxml.service.model.Post
 
 class PostsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-
-
-
     fun bind(post: Post){
+
         val binding = ItemCardBinding.bind(itemView)
         binding.titleTextView.text = post.title
         binding.descriptionTextViw.text = post.description

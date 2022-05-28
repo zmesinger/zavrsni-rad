@@ -3,7 +3,10 @@ package com.mesinger.spaceappxml.firebase
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -14,7 +17,6 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
 
     private val posts: MutableLiveData<List<Post>> = MutableLiveData()
-    private var post: MutableLiveData<List<Post>> = MutableLiveData()
 
     fun getFirestore(): FirebaseFirestore {
         return Firebase.firestore
@@ -23,6 +25,11 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
     fun getReference(): StorageReference {
         return FirebaseStorage.getInstance().reference
     }
+
+    fun getInstance(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
+    }
+
 
 
 
@@ -42,17 +49,25 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return posts
     }
 
-    fun getPostByID(postID: String):  LiveData<List<Post>>{
+    suspend fun getPostDetails(postID: String): Post? {
+        var post: Post? = null
 
-        val addOnSuccessListener = db.collection("posts")
-            .whereEqualTo("postID", postID)
-            .get()
-            .addOnSuccessListener { result ->
-                post.postValue(result.toObjects(Post::class.java))
+        try {
+            val p = getBoardDetailsCallback(postID)
+            post = p.toObject(Post::class.java)
+            if (post != null) {
+                post.postID = p.id
             }
-
+        } catch (e: FirebaseFirestoreException) {
+            Log.e("getBoardDetailsNEW", "Error getting board details", e)
+        }
         return post
+    }
 
+    private suspend  fun getBoardDetailsCallback(postID: String): DocumentSnapshot {
+        return getInstance().collection("posts")
+            .document(postID)
+            .get()
 
     }
 
