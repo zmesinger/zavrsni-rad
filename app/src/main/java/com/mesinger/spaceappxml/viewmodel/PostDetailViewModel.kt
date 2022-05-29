@@ -36,10 +36,9 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
         return authentication.getCurrentUserInfo().email.toString()
     }
 
-    fun getPostByID(postID: String): LiveData<Post> {
-
-
-
+    fun getPostByID(postID: String): Post? {
+        var post: Post? = null
+        postID.let { post = repo.getPostByID(postID) }
         return post
     }
 

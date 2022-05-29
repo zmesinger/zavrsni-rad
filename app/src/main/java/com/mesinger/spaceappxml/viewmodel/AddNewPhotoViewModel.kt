@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.Post
+import org.koin.core.component.getScopeId
 import org.koin.core.component.getScopeName
 import java.util.*
 
@@ -58,18 +59,20 @@ class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val aut
 
         if (imageUri != null) {
 
-            val userEmail: String = authentication.getCurrentUserInfo().email.toString()
+
             val ref = storageReference.child("images/" + UUID.randomUUID().toString())
 
-            postID = repo.getFirestore().collection("posts").document().id
+
+
             val uploadTask = ref.putFile(imageUri!!).addOnFailureListener(){
                 Log.d("AddNewPhotoViewModel", "Upload failure")
             }.addOnSuccessListener { it ->
                 val result = it.metadata!!.reference!!.downloadUrl
                 result.addOnSuccessListener {
                     var imageLink = it.toString()
-                    val post = Post(this.postID ,this.title,this.description, imageLink, userEmail)
-                    uploadPost(post)
+
+                    uploadPost(imageLink)
+
                     Log.d("AddNewPhotoViewModel", "Upload post successful")
                 }
                 Log.d("AddNewPhotoViewModel", "Upload successful")
@@ -84,13 +87,20 @@ class AddNewPhotoViewModel(private val repo: FirebaseRepository, private val aut
 
     }
 
-    private fun uploadPost(post: Post){
+    private fun uploadPost(imageLink: String){
+        val userEmail = getUserEmail()
+        val reference = repo.getDocumentReference()
 
-        repo.getFirestore()
-            .collection("posts")
-            .add(post)
+        val post = Post(reference.id, this.title, this.description, imageLink, userEmail)
+
+        reference.set(post)
 
 
+
+    }
+
+    private fun getUserEmail(): String {
+        return authentication.getCurrentUserInfo().email.toString()
 
     }
 

@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentPostDetailBinding
 import com.mesinger.spaceappxml.service.model.Post
 import com.mesinger.spaceappxml.viewmodel.PostDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class PostDetailFragment : Fragment() {
+class PostDetailFragment : Fragment(){
 
     private lateinit var binding: FragmentPostDetailBinding
     private val viewModel: PostDetailViewModel by viewModel()
@@ -32,21 +31,30 @@ class PostDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         val post = viewModel.getPostByID(args.postID)
-        displayData(post)
+        display(post)
+
 
     }
 
-    private fun displayData(post: LiveData<Post>){
-        post.observe(viewLifecycleOwner) { newPost ->
-            binding.titleTextView.text = newPost.title
-            binding.descriptionTextViw.text = newPost.description
-            binding.userTextView.text = newPost.userEmail
-            Glide.with(requireContext())
-                .load(newPost.imageURL)
-                .into(binding.cardImageView)
+    private fun display(post: Post?) {
+        post?.let {
+            binding.apply {
+
+                titleTextView.text = post.title
+                userTextView.text = post.userEmail
+                descriptionTextViw.text = post.description
+                Glide.with(requireContext())
+                    .load(post.imageURL)
+                    .into(cardImageView)
+
+                return
+            }
         }
     }
+
 
 
 
@@ -55,7 +63,6 @@ class PostDetailFragment : Fragment() {
             viewModel.setContent(it.toString())
         }
     }
-
 
 
 

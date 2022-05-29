@@ -3,15 +3,16 @@ package com.mesinger.spaceappxml.firebase
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.ktx.*
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.mesinger.spaceappxml.service.model.Post
+import kotlinx.coroutines.tasks.await
 
 class FirebaseRepository(private val db: FirebaseFirestore) {
 
@@ -28,6 +29,10 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
     fun getInstance(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
+    }
+
+    fun getDocumentReference(): DocumentReference {
+        return db.collection("posts").document()
     }
 
 
@@ -48,29 +53,24 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
         return posts
     }
-
-    suspend fun getPostDetails(postID: String): Post? {
+    fun getPostByID(postID: String): Post{
         var post: Post? = null
 
-        try {
-            val p = getBoardDetailsCallback(postID)
-            post = p.toObject(Post::class.java)
-            if (post != null) {
-                post.postID = p.id
-            }
-        } catch (e: FirebaseFirestoreException) {
-            Log.e("getBoardDetailsNEW", "Error getting board details", e)
-        }
-        return post
-    }
-
-    private suspend  fun getBoardDetailsCallback(postID: String): DocumentSnapshot {
-        return getInstance().collection("posts")
+        db.collection("posts")
             .document(postID)
             .get()
+            .addOnSuccessListener { result ->
+                if(result != null) {
+                    post = result.toObject(Post::class.java)
+                }else{
+                    Log.d("FirebaseRepository", "Cannot get post by ID")
+                }
+            }
 
+        return post!!
     }
 
 
-    
+
+
 }
