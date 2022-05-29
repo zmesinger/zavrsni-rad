@@ -8,6 +8,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -54,20 +55,21 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return posts
     }
     fun getPostByID(postID: String): Post{
-        var post: Post? = null
 
+        var post: Post? = Post()
         db.collection("posts")
             .document(postID)
             .get()
             .addOnSuccessListener { result ->
-                if(result != null) {
-                    post = result.toObject(Post::class.java)
-                }else{
-                    Log.d("FirebaseRepository", "Cannot get post by ID")
-                }
+                post = result.toObject(Post::class.java)
+                Log.d("FirebaseRepository", "PostByID Fetched")
+                Log.d("FirebaseRepository", post!!.postID)
+                Log.d("FirebaseRepository", post!!.title)
+                Log.d("FirebaseRepository", post!!.description)
+                Log.d("FirebaseRepository", post!!.userEmail)
             }
-
         return post!!
+
     }
 
 

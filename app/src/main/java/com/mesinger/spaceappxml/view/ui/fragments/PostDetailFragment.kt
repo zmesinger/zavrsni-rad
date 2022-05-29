@@ -32,8 +32,7 @@ class PostDetailFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val post = viewModel.getPostByID(args.postID)
+        val post: Post? = viewModel.getPostByID(args.postID)
         display(post)
 
 
@@ -64,6 +63,14 @@ class PostDetailFragment : Fragment(){
         }
     }
 
+    companion object {
+        val Tag = "PostDetails"
+        val PostIdKey = "PostId"
+
+        fun create(id: Long): Fragment {
+            return PostDetailFragment()
+        }
+    }
 
 
 }
