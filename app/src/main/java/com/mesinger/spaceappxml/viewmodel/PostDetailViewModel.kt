@@ -22,6 +22,8 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
     private val content: LiveData<String> get() = _content
     private val postID: LiveData<String> get() = _postID
 
+    val comments = repo.getAllComments(postID.value.toString())
+
     fun setUser(user: String){
         this._user.value = user
     }

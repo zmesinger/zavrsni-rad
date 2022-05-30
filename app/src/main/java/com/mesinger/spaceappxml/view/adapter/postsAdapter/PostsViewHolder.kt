@@ -1,4 +1,4 @@
-package com.mesinger.spaceappxml.view.adapter
+package com.mesinger.spaceappxml.view.adapter.postsAdapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

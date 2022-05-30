@@ -9,6 +9,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.mesinger.spaceappxml.service.model.Comment
 import com.mesinger.spaceappxml.service.model.Post
 import kotlinx.coroutines.tasks.await
 
@@ -16,6 +17,7 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
 
     private val posts: MutableLiveData<List<Post>> = MutableLiveData()
+    private val comments: MutableLiveData<List<Comment>> = MutableLiveData()
 
     fun getFirestore(): FirebaseFirestore {
         return Firebase.firestore
@@ -54,6 +56,22 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         }
 
         return posts
+    }
+
+    fun getAllComments(postID: String): LiveData<List<Comment>>{
+        if(comments.value == null){
+            db.collection("posts")
+                .document(postID)
+                .collection("comments")
+                .get()
+                .addOnSuccessListener { result ->
+                    comments.postValue(result.toObjects(Comment::class.java))
+                    Log.d("Firestore", "Successfully fetched comments")
+                }.addOnFailureListener{ exception ->
+                    Log.d("Firestore", "Error getting comments", exception)
+                }
+        }
+        return comments
     }
 
 

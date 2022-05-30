@@ -1,11 +1,9 @@
-package com.mesinger.spaceappxml.view.adapter
+package com.mesinger.spaceappxml.view.adapter.postsAdapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mesinger.spaceappxml.R
-import com.mesinger.spaceappxml.databinding.ItemCardBinding
 import com.mesinger.spaceappxml.service.model.Post
 
 class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {

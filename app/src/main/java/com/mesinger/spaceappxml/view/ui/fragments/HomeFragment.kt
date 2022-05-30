@@ -1,7 +1,6 @@
 package com.mesinger.spaceappxml.view.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentHomeBinding
-import com.mesinger.spaceappxml.view.adapter.OnPostEventListener
-import com.mesinger.spaceappxml.view.adapter.PostsListAdapter
+import com.mesinger.spaceappxml.view.adapter.postsAdapter.OnPostEventListener
+import com.mesinger.spaceappxml.view.adapter.postsAdapter.PostsListAdapter
 import com.mesinger.spaceappxml.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
