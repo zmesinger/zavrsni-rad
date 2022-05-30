@@ -3,10 +3,7 @@ package com.mesinger.spaceappxml.firebase
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -36,6 +33,10 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return db.collection("posts").document()
     }
 
+    fun getCommentsReference(postID: String): CollectionReference {
+        return db.collection("posts").document(postID).collection("comments")
+    }
+
 
 
 
@@ -54,6 +55,8 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
         return posts
     }
+
+
     fun getPostByID(postID: String): Post{
 
         var post: Post? = Post()

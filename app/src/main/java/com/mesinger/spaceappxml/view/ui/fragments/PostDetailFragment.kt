@@ -1,11 +1,14 @@
 package com.mesinger.spaceappxml.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mesinger.spaceappxml.R
@@ -34,6 +37,8 @@ class PostDetailFragment : Fragment(){
 
         val post: Post? = viewModel.getPostByID(args.postID)
         display(post)
+        setContent()
+        postComment()
 
 
     }
@@ -54,6 +59,14 @@ class PostDetailFragment : Fragment(){
         }
     }
 
+    private fun postComment(){
+        binding.commentButton.setOnClickListener{
+            viewModel.uploadComment(args.postID)
+            Log.d("PostDetailFragment", "Commented successfully")
+            binding.commentEditText.text!!.clear()
+        }
+    }
+
 
 
 
@@ -61,16 +74,9 @@ class PostDetailFragment : Fragment(){
         binding.commentEditText.doAfterTextChanged {
             viewModel.setContent(it.toString())
         }
-    }
-
-    companion object {
-        val Tag = "PostDetails"
-        val PostIdKey = "PostId"
-
-        fun create(id: Long): Fragment {
-            return PostDetailFragment()
         }
     }
 
 
-}
+
+

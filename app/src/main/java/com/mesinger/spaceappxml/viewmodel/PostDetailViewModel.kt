@@ -1,10 +1,12 @@
 package com.mesinger.spaceappxml.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
+import com.mesinger.spaceappxml.service.model.Comment
 import com.mesinger.spaceappxml.service.model.Post
 
 class PostDetailViewModel(private val repo: FirebaseRepository, private val authentication: FirebaseAuthentication) : ViewModel() {
@@ -41,6 +43,21 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
         postID.let { post = repo.getPostByID(postID) }
         return post
     }
+
+    fun uploadComment(postID: String){
+        val document = repo.getCommentsReference(postID)
+        val userEmail = authentication.getCurrentUserInfo().email
+        val comment = Comment(userEmail!!,this.content.value.toString(),postID)
+
+        document
+            .add(comment)
+            .addOnSuccessListener {
+                Log.d("PostDetailViewModel", "Comment successful")
+            }
+
+    }
+
+
 
 
 
