@@ -30,14 +30,19 @@ class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
         holder.bind(post)
 
         onPostEventListener?.let { listener ->
-            holder.itemView.setOnClickListener{ listener.onItemSelectedListener(post.postID) }
-        }
+                holder.itemView.setOnClickListener { listener.onItemSelectedListener(post.postID)
+                  }
+                }
 
-    }
+            }
 
     override fun getItemCount(): Int {
-       return posts.count()
+        return posts.count()
     }
-
-
 }
+
+
+
+
+
+

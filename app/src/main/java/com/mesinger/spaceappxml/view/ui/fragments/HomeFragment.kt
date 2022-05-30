@@ -32,6 +32,7 @@ class HomeFragment: Fragment(), OnPostEventListener {
         loadData()
 
 
+
         return binding.root
     }
 
@@ -74,6 +75,9 @@ class HomeFragment: Fragment(), OnPostEventListener {
         val action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(id.toString())
         findNavController().navigate(action)
     }
+
+
+
 
 
 }
