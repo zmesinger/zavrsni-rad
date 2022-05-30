@@ -6,17 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentPostDetailBinding
+import com.mesinger.spaceappxml.service.model.Comment
 import com.mesinger.spaceappxml.service.model.Post
 import com.mesinger.spaceappxml.view.adapter.commentsAdapter.CommentsListAdapter
-import com.mesinger.spaceappxml.view.adapter.postsAdapter.PostsListAdapter
 import com.mesinger.spaceappxml.viewmodel.PostDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,7 +38,7 @@ class PostDetailFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val post: Post? = viewModel.getPostByID(args.postID)
+        val post = viewModel.getPostByID(args.postID)
         setPostID()
         setupRecyclerView()
         display(post)
@@ -50,13 +49,17 @@ class PostDetailFragment : Fragment(){
 
     }
 
-    private fun loadComments(){
-        viewModel.comments.observe(viewLifecycleOwner){
-            if(it != null && it.isNotEmpty()){
+    private fun loadComments() {
+        viewModel.getComments().observe(viewLifecycleOwner){
+            if( it != null && it.isNotEmpty()){
                 adapter.setComments(it)
+
             }
 
         }
+        Log.d("PostDetailFragment", "Comments displayed")
+
+
     }
 
     private fun setupRecyclerView() {
@@ -67,22 +70,21 @@ class PostDetailFragment : Fragment(){
         )
         adapter = CommentsListAdapter()
         binding.commentsRecyclerView.adapter = adapter
+        Log.d("PostDetailsFragment", "RecyclerView set up")
     }
 
-    private fun display(post: Post?) {
-        post?.let {
+    private fun display(post: LiveData<Post>) {
+        post.observe(viewLifecycleOwner){
             binding.apply {
-
-                titleTextView.text = post.title
-                userTextView.text = post.userEmail
-                descriptionTextViw.text = post.description
+                titleTextView.text = it.title
+                userTextView.text = it.userEmail
+                descriptionTextViw.text = it.description
                 Glide.with(requireContext())
-                    .load(post.imageURL)
+                    .load(it.imageURL)
                     .into(cardImageView)
-
-                return
             }
         }
+        Log.d("PostDetailsFragment", "Post displayed")
     }
 
     private fun postComment(){
@@ -103,7 +105,7 @@ class PostDetailFragment : Fragment(){
     private fun setContent(){
         binding.commentEditText.doAfterTextChanged {
             viewModel.setContent(it.toString())
-        }
+            }
         }
     }
 

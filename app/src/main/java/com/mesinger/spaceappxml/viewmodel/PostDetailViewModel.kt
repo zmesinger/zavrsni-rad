@@ -22,10 +22,14 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
     private val content: LiveData<String> get() = _content
     private val postID: LiveData<String> get() = _postID
 
-    val comments = repo.getAllComments(postID.value.toString())
 
-    fun setUser(user: String){
+
+    private fun setUser(user: String){
         this._user.value = user
+    }
+
+    private fun setPost(post: Post){
+        this._post.value = post
     }
 
     fun setContent(content: String){
@@ -36,26 +40,30 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
         this._postID.value = postID
     }
 
-    fun getUserEmail(): String {
+    private fun getUserEmail(): String {
         return authentication.getCurrentUserInfo().email.toString()
     }
 
-    fun getPostByID(postID: String): Post? {
-        var post: Post? = null
-        postID.let { post = repo.getPostByID(postID) }
-        return post
+    fun getPostByID(postID: String): LiveData<Post> {
+        return repo.getPostByID(postID)
+    }
+
+    fun getComments(): LiveData<List<Comment>>{
+        return repo.getAllComments(postID.value.toString())
     }
 
     fun uploadComment(postID: String){
         val document = repo.getCommentsReference(postID)
-        val userEmail = authentication.getCurrentUserInfo().email
-        val comment = Comment(userEmail!!,this.content.value.toString(),postID)
+        setUser(getUserEmail())
+        val comment = Comment(this.user.value.toString(),this.content.value.toString(),postID)
 
-        document
-            .add(comment)
-            .addOnSuccessListener {
-                Log.d("PostDetailViewModel", "Comment successful")
-            }
+        if(comment.content.isNotBlank()) {
+            document
+                .add(comment)
+                .addOnSuccessListener {
+                    Log.d("PostDetailViewModel", "Comment successful")
+                }
+        }
 
     }
 

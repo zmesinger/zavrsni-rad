@@ -17,6 +17,7 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
 
     private val posts: MutableLiveData<List<Post>> = MutableLiveData()
+    private val post: MutableLiveData<Post> = MutableLiveData()
     private val comments: MutableLiveData<List<Comment>> = MutableLiveData()
 
     fun getFirestore(): FirebaseFirestore {
@@ -64,8 +65,8 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
                 .document(postID)
                 .collection("comments")
                 .get()
-                .addOnSuccessListener { result ->
-                    comments.postValue(result.toObjects(Comment::class.java))
+                .addOnSuccessListener { results ->
+                    comments.postValue(results.toObjects(Comment::class.java))
                     Log.d("Firestore", "Successfully fetched comments")
                 }.addOnFailureListener{ exception ->
                     Log.d("Firestore", "Error getting comments", exception)
@@ -75,21 +76,16 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
     }
 
 
-    fun getPostByID(postID: String): Post{
+    fun getPostByID(postID: String): LiveData<Post>{
 
-        var post: Post? = Post()
         db.collection("posts")
             .document(postID)
             .get()
             .addOnSuccessListener { result ->
-                post = result.toObject(Post::class.java)
+                post.postValue(result.toObject(Post::class.java))
                 Log.d("FirebaseRepository", "PostByID Fetched")
-                Log.d("FirebaseRepository", post!!.postID)
-                Log.d("FirebaseRepository", post!!.title)
-                Log.d("FirebaseRepository", post!!.description)
-                Log.d("FirebaseRepository", post!!.userEmail)
             }
-        return post!!
+        return post
 
     }
 

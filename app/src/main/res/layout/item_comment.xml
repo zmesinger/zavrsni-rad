@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:text="UserEmail"
         android:textSize="14dp"
+        android:textColor="@color/white"
         android:paddingBottom="10dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:text="Content"
+        android:textColor="@color/white"
         android:textSize="18dp"
         tools:layout_editor_absoluteX="313dp"
         tools:layout_editor_absoluteY="16dp" />
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:textSize="14dp"
         android:text="Timestamp"
+        android:textColor="@color/white"
         android:layout_marginEnd="10dp"
         tools:layout_editor_absoluteX="18dp"
         tools:layout_editor_absoluteY="47dp" />
