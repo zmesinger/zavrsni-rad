@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardViewComment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/item_comment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/dark_grey"
+    android:elevation="2dp"
+    android:layout_marginBottom="1dp"
+    android:clickable="true">
+
 
 
     <LinearLayout
@@ -17,11 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="UserEmail"
-        android:textSize="14dp"
-        android:textColor="@color/white"
-        android:paddingBottom="10dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:textSize="10dp"
+        android:textColor="@color/grey"
+        android:paddingBottom="10dp"/>
 
 
     <TextView
@@ -29,27 +33,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
+        android:paddingBottom="10dp"
         android:text="Content"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        tools:layout_editor_absoluteX="313dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:textColor="@color/light_grey"
+        android:textSize="14dp"/>
 
 
     </LinearLayout>
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">
     <TextView
         android:id="@+id/textViewTimestamp"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14dp"
+        android:textSize="10dp"
         android:text="Timestamp"
-        android:textColor="@color/white"
-        android:layout_marginEnd="10dp"
-        tools:layout_editor_absoluteX="18dp"
-        tools:layout_editor_absoluteY="47dp" />
-</LinearLayout>
+        android:textColor="@color/grey"
+        android:layout_marginEnd="10dp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
