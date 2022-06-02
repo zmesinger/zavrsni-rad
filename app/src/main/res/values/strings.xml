@@ -40,4 +40,8 @@
     <string name="posting_failure">Unfortunately, your post has not been posted</string>
     <string name="enter_comment">Enter comment</string>
     <string name="comment_posted">Comment posted!</string>
+    <string name="author">Author</string>
+    <string name="date">Date</string>
+    <string name="description">Description</string>
+    <string name="actual_description">Actual description</string>
 </resources>
