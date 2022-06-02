@@ -35,6 +35,10 @@ class HomeFragment: Fragment(), OnPostEventListener {
 
         return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        addNew()
+    }
 
     private fun loadData(){
         viewModel.posts.observe(viewLifecycleOwner){
@@ -58,10 +62,7 @@ class HomeFragment: Fragment(), OnPostEventListener {
         binding.HomeRecyclerView.adapter = adapter
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        addNew()
-    }
+
 
     private fun addNew(){
         binding.homeFAB.setOnClickListener(){

@@ -40,10 +40,6 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return db.collection("posts").document(postID).collection("comments")
     }
 
-
-
-
-
     fun getAllPosts(): LiveData<List<Post>>{
         if(posts.value == null) {
             db.collection("posts")

@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun navigateToAPOD(){
+    }
+
     private fun setupNav() {
         navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
