@@ -36,6 +36,7 @@ val authModule = module {
         viewModel { RegisterViewModel(get(), get()) }
         viewModel { SignInViewModel(get()) }
         viewModel { PostDetailViewModel(get(), get()) }
+        viewModel { PictureOfTheDayViewModel(get())}
     }
 
 

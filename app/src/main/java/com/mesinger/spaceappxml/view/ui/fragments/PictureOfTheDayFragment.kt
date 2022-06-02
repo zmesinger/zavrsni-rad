@@ -15,7 +15,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 
-class PictureOfTheDayFragment : Fragment() {
+class PictureOfTheDayFragment : Fragment(R.layout.fragment_picture_of_the_day) {
 
     private lateinit var binding: FragmentPictureOfTheDayBinding;
 

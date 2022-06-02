@@ -3,7 +3,7 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment">
+    app:startDestination="@id/pictureOfTheDayFragment">
 
     <fragment
         android:id="@+id/signInFragment"
@@ -37,9 +37,6 @@
         <action
             android:id="@+id/action_homeFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_pictureOfTheDayFragment"
-            app:destination="@id/pictureOfTheDayFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPhotoFragment"
