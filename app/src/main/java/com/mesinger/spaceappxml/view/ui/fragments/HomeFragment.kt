@@ -28,27 +28,22 @@ class HomeFragment: Fragment(), OnPostEventListener {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        setupRecyclerView()
-        loadData()
-
-
-
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addNew()
+        setupRecyclerView()
+        loadData()
     }
+
 
     private fun loadData(){
         viewModel.posts.observe(viewLifecycleOwner){
             if( it != null && it.isNotEmpty()){
                 adapter.setPosts(it)
-
             }
-
         }
-
     }
 
     private fun setupRecyclerView() {

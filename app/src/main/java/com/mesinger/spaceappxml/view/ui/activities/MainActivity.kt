@@ -7,8 +7,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.mesinger.spaceappxml.databinding.ActivityMainBinding
 import com.mesinger.spaceappxml.view.ui.fragments.HomeFragment
 import com.mesinger.spaceappxml.view.ui.fragments.PictureOfTheDayFragment
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         navHostFragment = supportFragmentManager.findFragmentById(com.mesinger.spaceappxml.R.id.fragmentContainerView) as NavHostFragment
 
+        binding.bottomNavigationView.setupWithNavController(navHostFragment.navController);
         setupNav()
 
 

@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mesinger.spaceappxml.firebase.FirebaseAuthentication
 import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.User
+import com.mesinger.spaceappxml.service.repository.api.RetrofitInstance
 import com.mesinger.spaceappxml.viewmodel.*
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -29,6 +30,10 @@ val authModule = module {
     val dataModule = module {
         single { User(get()) }
     }
+
+
+
+
 
     val viewModelModule = module {
         viewModel { AddNewPhotoViewModel(get(), get()) }

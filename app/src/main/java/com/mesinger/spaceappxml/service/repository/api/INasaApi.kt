@@ -7,9 +7,10 @@ import retrofit2.http.GET
 
 const val APOD = "/planetary/apod?api_key=91jh31GLa2VA0DICTN7CtYDKhimITGTfELpUCyR0"
 
-interface APODInterface {
+interface INasaApi {
 
 
     @GET(APOD)
     suspend fun getData(): Response<PictureOfTheDay>
+
 }
