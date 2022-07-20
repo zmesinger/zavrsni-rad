@@ -6,6 +6,7 @@ import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.User
 import com.mesinger.spaceappxml.service.repository.api.RetrofitInstance
 import com.mesinger.spaceappxml.viewmodel.*
+import org.koin.androidx.compose.get
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -42,6 +43,7 @@ val authModule = module {
         viewModel { SignInViewModel(get()) }
         viewModel { PostDetailViewModel(get(), get()) }
         viewModel { PictureOfTheDayViewModel(get())}
+        viewModel { APIViewModel() }
     }
 
 

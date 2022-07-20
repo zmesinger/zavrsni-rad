@@ -1,4 +1,4 @@
-package com.mesinger.spaceappxml.view.adapter.commentsAdapter
+package com.mesinger.spaceappxml.view.adapter.commentsadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

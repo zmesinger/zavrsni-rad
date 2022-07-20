@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.databinding.FragmentHomeBinding
-import com.mesinger.spaceappxml.view.adapter.postsAdapter.OnPostEventListener
-import com.mesinger.spaceappxml.view.adapter.postsAdapter.PostsListAdapter
+import com.mesinger.spaceappxml.view.adapter.postsadapter.OnPostEventListener
+import com.mesinger.spaceappxml.view.adapter.postsadapter.PostsListAdapter
 import com.mesinger.spaceappxml.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

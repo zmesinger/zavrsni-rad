@@ -1,4 +1,4 @@
-package com.mesinger.spaceappxml.view.adapter.postsAdapter
+package com.mesinger.spaceappxml.view.adapter.postsadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
