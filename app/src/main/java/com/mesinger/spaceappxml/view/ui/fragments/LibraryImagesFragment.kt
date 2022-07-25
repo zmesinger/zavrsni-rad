@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.key
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,16 +31,22 @@ class LibraryImagesFragment : Fragment() {
     ): View? {
         binding = FragmentLibraryImagesBinding.inflate(inflater, container, false)
         setupRecyclerView()
-        loadData()
-        //getData()
+        search()
 
 
         return binding.root
     }
 
-    private fun loadData() {
+    private fun search(){
+        binding.searchEditText.doAfterTextChanged {
+            loadData(binding.searchEditText.text.toString())
+        }
+    }
+
+
+    private fun loadData(keyword: String) {
         lifecycleScope.launchWhenCreated {
-            val response = viewModel.getLibraryImages()
+            val response = viewModel.getLibraryImages(keyword)
             if(response.isSuccessful){
                 adapter.setItems(response.body()!!.collection.items)
             }else{
@@ -57,19 +65,6 @@ class LibraryImagesFragment : Fragment() {
         binding.libraryRecyclerView.adapter = adapter
     }
 
-    private fun getData(){
-        lifecycleScope.launchWhenCreated {
-            val response = viewModel.getLibraryImages()
-            if(response.isSuccessful){
-                Log.d(TAG, "getData: " + response.body()!!.collection.items[0].href)
-            }else{
-                Log.d(TAG, "getData: failure")
-            }
 
-
-        }
-
-
-    }
 
 }

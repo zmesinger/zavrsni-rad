@@ -1,8 +1,8 @@
-package com.mesinger.spaceappxml.service.model
+package com.mesinger.spaceappxml.service.model.nasalibrary
 
 import com.google.gson.annotations.SerializedName
 
-data class Links(
+data class Link(
 
     @SerializedName("rel")
     val rel : String,

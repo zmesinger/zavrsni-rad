@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mesinger.spaceappxml.databinding.ItemLibraryImageBinding
-import com.mesinger.spaceappxml.service.model.Item
+import com.mesinger.spaceappxml.service.model.nasalibrary.Item
 
 class LibraryListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

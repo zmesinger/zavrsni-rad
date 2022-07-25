@@ -1,4 +1,4 @@
-package com.mesinger.spaceappxml.service.model
+package com.mesinger.spaceappxml.service.model.nasalibrary
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,5 +8,5 @@ data class Item(
     @SerializedName("data")
     val data : List<Data>,
     @SerializedName("links")
-    val links : List<Links>
+    val links : List<Link>
 )

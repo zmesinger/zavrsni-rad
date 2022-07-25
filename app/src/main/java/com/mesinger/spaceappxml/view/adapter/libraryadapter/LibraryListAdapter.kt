@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mesinger.spaceappxml.R
-import com.mesinger.spaceappxml.service.model.Item
+import com.mesinger.spaceappxml.service.model.nasalibrary.Item
 
 class LibraryListAdapter: RecyclerView.Adapter<LibraryListViewHolder>() {
     private val items = mutableListOf<Item>()

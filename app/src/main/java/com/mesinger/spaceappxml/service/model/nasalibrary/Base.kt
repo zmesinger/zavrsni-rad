@@ -1,4 +1,4 @@
-package com.mesinger.spaceappxml.service.model
+package com.mesinger.spaceappxml.service.model.nasalibrary
 
 import com.google.gson.annotations.SerializedName
 

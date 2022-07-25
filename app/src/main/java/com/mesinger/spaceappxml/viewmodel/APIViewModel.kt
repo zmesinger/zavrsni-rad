@@ -2,8 +2,7 @@ package com.mesinger.spaceappxml.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.mesinger.spaceappxml.service.model.Base
-import com.mesinger.spaceappxml.service.model.Collection
+import com.mesinger.spaceappxml.service.model.nasalibrary.Base
 import com.mesinger.spaceappxml.service.model.PictureOfTheDay
 import com.mesinger.spaceappxml.service.repository.api.LibraryRetrofit
 import com.mesinger.spaceappxml.service.repository.api.RetrofitInstance
@@ -15,8 +14,8 @@ class APIViewModel() : ViewModel() {
         return RetrofitInstance.nasaApi.getData()
     }
 
-    suspend fun getLibraryImages(): Response<Base> {
+    suspend fun getLibraryImages(keyword: String): Response<Base> {
         val gson = Gson()
-        return LibraryRetrofit.nasaApi.getLibraryImages()
+        return LibraryRetrofit.nasaApi.getLibraryImages(keyword)
     }
 }
