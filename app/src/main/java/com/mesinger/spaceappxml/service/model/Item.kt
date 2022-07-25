@@ -2,7 +2,7 @@ package com.mesinger.spaceappxml.service.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Items(
+data class Item(
     @SerializedName("href")
     val href : String,
     @SerializedName("data")
