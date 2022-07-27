@@ -44,7 +44,7 @@ class PostDetailViewModel(private val repo: FirebaseRepository, private val auth
     }
 
     fun getComments(postID: String): LiveData<List<Comment>>{
-        return repo.getAllComments(postID)
+        return repo.getComments(postID)
     }
 
     fun uploadComment(postID: String){

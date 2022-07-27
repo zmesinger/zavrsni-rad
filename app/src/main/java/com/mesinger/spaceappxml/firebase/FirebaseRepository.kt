@@ -5,20 +5,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.mesinger.spaceappxml.service.model.Comment
 import com.mesinger.spaceappxml.service.model.Post
-import kotlinx.coroutines.tasks.await
 
+private const val TAG = "FirebaseRepository"
 class FirebaseRepository(private val db: FirebaseFirestore) {
 
 
     private val posts: MutableLiveData<List<Post>> = MutableLiveData()
     private val post: MutableLiveData<Post> = MutableLiveData()
     private val comments: MutableLiveData<List<Comment>> = MutableLiveData()
+
 
     fun getFirestore(): FirebaseFirestore {
         return Firebase.firestore
@@ -41,34 +41,38 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
     }
 
     fun getAllPosts(): LiveData<List<Post>>{
-        if(posts.value == null) {
-            db.collection("posts")
-                .get()
-                .addOnSuccessListener { result ->
-                    posts.postValue(result.toObjects(Post::class.java))
+        db.collection("posts")
+            .addSnapshotListener{snapshot, e ->
+                if(e!= null){
+                    Log.w(TAG, "getAllPosts: ", e)
+                    return@addSnapshotListener
                 }
-                .addOnFailureListener { exception ->
-                    Log.d("Firestore", "Error getting documents: ", exception)
+                if(snapshot != null){
+                    posts.postValue(snapshot.toObjects(Post::class.java))
                 }
-        }
+            }
 
         return posts
     }
 
-    fun getAllComments(postID: String): LiveData<List<Comment>>{
-        if(comments.value == null){
-            db.collection("posts")
-                .document(postID)
-                .collection("comments")
-                .get()
-                .addOnSuccessListener { results ->
-                    comments.postValue(results.toObjects(Comment::class.java))
-                    Log.d("Firestore", "Successfully fetched comments")
-                }.addOnFailureListener{ exception ->
-                    Log.d("Firestore", "Error getting comments", exception)
+
+
+    fun getComments(postID: String) : LiveData<List<Comment>>{
+        db.collection("posts")
+            .document(postID)
+            .collection("comments")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
                 }
-        }
-        return comments
+
+                if (snapshot != null) {
+                    comments.postValue(snapshot.toObjects(Comment::class.java))
+                }
+            }
+             return comments;
+
     }
 
 
