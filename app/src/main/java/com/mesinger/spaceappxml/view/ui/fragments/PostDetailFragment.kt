@@ -17,13 +17,15 @@ import com.mesinger.spaceappxml.view.adapter.commentsadapter.CommentsListAdapter
 import com.mesinger.spaceappxml.viewmodel.PostDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
+private const val TAG = "PostDetailFragment"
 class PostDetailFragment : Fragment(){
 
     private lateinit var binding: FragmentPostDetailBinding
     private lateinit var adapter: CommentsListAdapter
     private val viewModel: PostDetailViewModel by viewModel()
     private val args: PostDetailFragmentArgs by navArgs()
+    private lateinit var post: LiveData<Post>
+    private var postID = String()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +38,7 @@ class PostDetailFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val post = viewModel.getPostByID(args.postID)
-        setPostID()
+        post = viewModel.getPostByID(args.postID)
         setupRecyclerView()
         display(post)
         loadComments()
@@ -48,14 +49,15 @@ class PostDetailFragment : Fragment(){
     }
 
     private fun loadComments() {
-        viewModel.getComments().observe(viewLifecycleOwner){
+        viewModel.getComments(args.postID).observe(viewLifecycleOwner){
             if( it != null && it.isNotEmpty()){
-                adapter.setComments(it)
-
+                if(postID == args.postID){
+                    adapter.setComments(it)
+                }
             }
 
         }
-        Log.d("PostDetailFragment", "Comments displayed")
+        Log.d(TAG, "Comments displayed")
 
 
     }
@@ -68,12 +70,13 @@ class PostDetailFragment : Fragment(){
         )
         adapter = CommentsListAdapter()
         binding.commentsRecyclerView.adapter = adapter
-        Log.d("PostDetailsFragment", "RecyclerView set up")
+        Log.d(TAG, "RecyclerView set up")
     }
 
     private fun display(post: LiveData<Post>) {
         post.observe(viewLifecycleOwner){
             binding.apply {
+                postID = it.postID
                 titleTextView.text = it.title
                 userTextView.text = it.userEmail
                 descriptionTextViw.text = it.description
@@ -82,19 +85,15 @@ class PostDetailFragment : Fragment(){
                     .into(cardImageView)
             }
         }
-        Log.d("PostDetailsFragment", "Post displayed")
+        Log.d(TAG, "Post displayed")
     }
 
     private fun postComment(){
         binding.commentButton.setOnClickListener{
             viewModel.uploadComment(args.postID)
-            Log.d("PostDetailFragment", "Commented successfully")
+            Log.d(TAG, "Commented successfully")
             binding.commentEditText.text!!.clear()
         }
-    }
-
-    private fun setPostID(){
-        viewModel.setPostID(args.postID)
     }
 
 
