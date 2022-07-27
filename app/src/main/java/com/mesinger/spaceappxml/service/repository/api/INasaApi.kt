@@ -8,6 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 const val APOD = "/planetary/apod?api_key=91jh31GLa2VA0DICTN7CtYDKhimITGTfELpUCyR0"
+const val API_KEY = "91jh31GLa2VA0DICTN7CtYDKhimITGTfELpUCyR0"
 const val NASA_LIBRARY = "search"
 const val ROVER_PHOTOS = "/mars-photos/api/v1/rovers/curiosity/photos"
 
@@ -22,6 +23,9 @@ interface INasaApi {
     suspend fun getLibraryImages(@Query("keywords") keyword: String) : Response<Base>
 
     @GET(ROVER_PHOTOS)
-    suspend fun getRoverPhotos(@Query("earthDate") earthDate: String) : Response<MarsPhoto>
+    suspend fun getRoverPhotos(
+        @Query("earth_date") earthDate: String,
+        @Query("api_key") apiKey : String
+    ) : Response<MarsPhoto>
 
 }
