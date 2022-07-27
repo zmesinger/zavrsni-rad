@@ -74,4 +74,9 @@
         android:name="com.mesinger.spaceappxml.view.ui.fragments.LibraryImagesFragment"
         android:label="fragment_library_images"
         tools:layout="@layout/fragment_library_images" />
+    <fragment
+        android:id="@+id/marsPhotosFragment"
+        android:name="com.mesinger.spaceappxml.view.ui.fragments.MarsPhotosFragment"
+        android:label="fragment_mars_photos"
+        tools:layout="@layout/fragment_mars_photos" />
 </navigation>

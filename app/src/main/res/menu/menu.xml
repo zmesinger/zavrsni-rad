@@ -14,7 +14,7 @@
         android:title="@string/nasa_library"
         />
     <item
-        android:id="@+id/ic_rover_photo"
+        android:id="@+id/marsPhotosFragment"
         android:icon="@drawable/ic_rover_photo"
         android:title="@string/mars_rover"
         />
