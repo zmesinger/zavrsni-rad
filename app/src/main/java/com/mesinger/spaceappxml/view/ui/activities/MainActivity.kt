@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
                 com.mesinger.spaceappxml.R.id.homeFragment -> showBottomNav()
                 com.mesinger.spaceappxml.R.id.addNewPhotoFragment -> showBottomNav()
                 com.mesinger.spaceappxml.R.id.pictureOfTheDayFragment -> showBottomNav()
-                com.mesinger.spaceappxml.R.id.libraryImageView -> showBottomNav()
+                com.mesinger.spaceappxml.R.id.libraryImagesFragment -> showBottomNav()
+                com.mesinger.spaceappxml.R.id.marsPhotosFragment -> showBottomNav()
                 else -> hideBottomNav()
             }
         }
