@@ -14,6 +14,8 @@ class FirebaseAuthentication(private val auth: FirebaseAuth) {
         return auth;
     }
 
+
+
     fun getCurrentUserUID(): String {
         val user = auth.currentUser
         var userID = String()

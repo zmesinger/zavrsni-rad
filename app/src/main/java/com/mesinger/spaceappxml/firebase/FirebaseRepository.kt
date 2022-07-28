@@ -33,7 +33,15 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
     }
 
     fun getCommentsReference(postID: String): CollectionReference {
-        return db.collection("posts").document(postID).collection("comments")
+        return db.collection("posts")
+            .document(postID)
+            .collection("comments")
+    }
+
+    fun getLikeReference(postID: String): CollectionReference {
+        return db.collection("posts")
+            .document(postID)
+            .collection("likes")
     }
 
     fun getAllPosts(): LiveData<List<Post>>{
@@ -84,6 +92,8 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return post
 
     }
+
+
 
 
 

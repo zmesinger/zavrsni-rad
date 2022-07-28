@@ -38,7 +38,7 @@ val authModule = module {
 
     val viewModelModule = module {
         viewModel { AddNewPhotoViewModel(get(), get()) }
-        viewModel { HomeViewModel(get()) }
+        viewModel { HomeViewModel(get(), get()) }
         viewModel { RegisterViewModel(get(), get()) }
         viewModel { SignInViewModel(get()) }
         viewModel { PostDetailViewModel(get(), get()) }
