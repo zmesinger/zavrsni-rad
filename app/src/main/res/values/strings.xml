@@ -49,4 +49,5 @@
     <string name="nasa_image_library_item">NASA Image Library item</string>
     <string name="search_for_pictures">Search for pictures</string>
     <string name="pick_date">Pick date</string>
+    <string name="like_unlike_imageview">Like/Unlike ImageView</string>
 </resources>

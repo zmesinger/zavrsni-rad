@@ -1,6 +1,7 @@
 package com.mesinger.spaceappxml.view.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import com.mesinger.spaceappxml.view.adapter.postsadapter.PostsListAdapter
 import com.mesinger.spaceappxml.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
+private const val TAG = "HomeFragment"
 class HomeFragment: Fragment(), OnPostEventListener {
 
     private lateinit var binding: FragmentHomeBinding
@@ -76,8 +77,9 @@ class HomeFragment: Fragment(), OnPostEventListener {
         findNavController().navigate(action)
     }
 
-
-
+    override fun onLikeButtonListener(id: String?) {
+        Log.d(TAG, "onLikeButtonListener: iv pressed")
+    }
 
 
 }

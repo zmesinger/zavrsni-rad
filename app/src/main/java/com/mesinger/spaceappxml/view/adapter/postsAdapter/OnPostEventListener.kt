@@ -4,4 +4,7 @@ interface OnPostEventListener {
 
     fun onItemSelectedListener(id: String?)
 
+    fun onLikeButtonListener(id: String?)
+
+
 }

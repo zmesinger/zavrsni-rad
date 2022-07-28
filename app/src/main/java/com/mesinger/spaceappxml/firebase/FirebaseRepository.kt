@@ -28,10 +28,6 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return FirebaseStorage.getInstance().reference
     }
 
-    fun getInstance(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
-    }
-
     fun getDocumentReference(): DocumentReference {
         return db.collection("posts").document()
     }
@@ -43,7 +39,7 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
     fun getAllPosts(): LiveData<List<Post>>{
         db.collection("posts")
             .addSnapshotListener{snapshot, e ->
-                if(e!= null){
+                if(e != null){
                     Log.w(TAG, "getAllPosts: ", e)
                     return@addSnapshotListener
                 }

@@ -43,6 +43,7 @@
             android:layout_marginTop="8dp"
             android:scaleType="centerCrop"
             app:srcCompat="@mipmap/ic_launcher"
+            android:clickable="true"
             android:contentDescription="User added image"
             />
 
@@ -65,15 +66,13 @@
 
         <ImageView
             android:id="@+id/imageViewLike"
-
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_unliked"
-            android:contentDescription="Unliked image"
+            android:contentDescription="@string/like_unlike_imageview"
             />
 
     </LinearLayout>

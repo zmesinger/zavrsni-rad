@@ -10,12 +10,11 @@ class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
     private val posts = mutableListOf<Post>()
     var onPostEventListener: OnPostEventListener? = null
 
-    fun setPosts(posts: List<Post>){
+    fun setPosts(posts: List<Post>) {
         this.posts.clear()
         this.posts.addAll(posts)
         this.notifyDataSetChanged()
     }
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
@@ -29,17 +28,22 @@ class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
         val post = posts[position]
         holder.bind(post)
 
-        onPostEventListener?.let { listener ->
-                holder.itemView.setOnClickListener { listener.onItemSelectedListener(post.postID)
-                  }
-                }
 
-            }
+        onPostEventListener?.let { listener ->
+            holder.getCard().setOnClickListener { listener.onItemSelectedListener(post.postID) }
+            holder.getImage().setOnClickListener{ listener.onItemSelectedListener(post.postID) }
+            holder.getLikeButton().setOnClickListener{ listener.onLikeButtonListener(post.postID) }
+        }
+    }
+
+
 
     override fun getItemCount(): Int {
-        return posts.count()
+            return posts.count()
     }
+
 }
+
 
 
 
