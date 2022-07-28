@@ -1,6 +1,7 @@
 package com.mesinger.spaceappxml.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,6 +44,8 @@ class SignInViewModel(private val auth: FirebaseAuthentication) : ViewModel() {
             if (task.isSuccessful){
                 _user.value = true
                 Log.d("SignInViewModel", "singIn: success")
+                
+
             }else{
                 _user.value = false
                 Log.d("SignInViewModel", "signIn: failure")

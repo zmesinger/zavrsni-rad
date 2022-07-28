@@ -5,7 +5,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.mesinger.spaceappxml.R
+import com.mesinger.spaceappxml.firebase.FirebaseRepository
 import com.mesinger.spaceappxml.service.model.Post
 
 private const val LIKED = "liked"
@@ -13,7 +16,7 @@ private const val UNLIKED = "unliked"
 class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
     private val posts = mutableListOf<Post>()
     private var isLiked = false
-    private var numberOfLikes = 0
+    private var numberOfLikes = 98
 
 
 
@@ -49,11 +52,13 @@ class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
         onPostEventListener?.let { listener ->
             holder.getCard().setOnClickListener { listener.onItemSelectedListener(post.postID) }
             holder.getImage().setOnClickListener{ listener.onItemSelectedListener(post.postID) }
-            holder.getLikeButton().setOnClickListener{ listener.onLikeButtonListener(post.postID) }
+            holder.getLikeButton().setOnClickListener{ listener.onItemSelectedListener(post.postID) }
         }
 
         checkIfLiked(isLiked, holder.getLikeButton())
-        setLikeNumber(numberOfLikes, holder.getLikeCount())
+        setLikeNumber(numberOfLikes.toString(), holder.getLikeCount())
+
+
 
     }
 
@@ -73,8 +78,8 @@ class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
         }
     }
 
-    private fun setLikeNumber(likeNumber: Int, likeNumberTextView: TextView){
-            likeNumberTextView.setText(likeNumber)
+    private fun setLikeNumber(likeNumber: String, likeNumberTextView: TextView){
+        likeNumberTextView.text = likeNumber
     }
 
 

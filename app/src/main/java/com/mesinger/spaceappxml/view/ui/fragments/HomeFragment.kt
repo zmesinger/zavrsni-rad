@@ -47,6 +47,9 @@ class HomeFragment: Fragment(), OnPostEventListener {
         viewModel.posts.observe(viewLifecycleOwner){
             if( it != null && it.isNotEmpty()){
                 adapter.setPosts(it)
+                for (post in it){
+                    checkIfLiked(post.postID)
+                }
             }
         }
     }
@@ -76,13 +79,12 @@ class HomeFragment: Fragment(), OnPostEventListener {
 
 
 
-    override fun onItemSelectedListener(postID: String?) {
-        val action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(postID.toString())
+    override fun onItemSelectedListener(id: String?) {
+        val action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(id.toString())
         findNavController().navigate(action)
     }
 
-    override fun onLikeButtonListener(postID: String?) {
-
+    override fun onLikeButtonListener(id: String?) {
 
     }
 
