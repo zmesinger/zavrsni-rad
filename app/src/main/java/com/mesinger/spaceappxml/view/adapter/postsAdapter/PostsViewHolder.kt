@@ -2,6 +2,7 @@ package com.mesinger.spaceappxml.view.adapter.postsadapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
@@ -33,6 +34,10 @@ class PostsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     fun getLikeButton() : ImageView{
         return ItemCardBinding.bind(itemView).imageViewLike
 
+    }
+
+    fun getLikeCount(): TextView{
+        return ItemCardBinding.bind(itemView).likeCountTextView
     }
 
 

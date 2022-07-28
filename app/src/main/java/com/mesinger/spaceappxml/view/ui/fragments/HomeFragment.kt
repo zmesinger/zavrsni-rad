@@ -70,16 +70,20 @@ class HomeFragment: Fragment(), OnPostEventListener {
         }
     }
 
+    private fun checkIfLiked(postID: String?){
+        adapter.setIsLiked(viewModel.checkIfLike(postID.toString()))
+    }
 
 
-    override fun onItemSelectedListener(id: String?) {
-        val action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(id.toString())
+
+    override fun onItemSelectedListener(postID: String?) {
+        val action = HomeFragmentDirections.actionHomeFragmentToPostDetailFragment(postID.toString())
         findNavController().navigate(action)
     }
 
-    override fun onLikeButtonListener(id: String?) {
+    override fun onLikeButtonListener(postID: String?) {
 
-        Log.d(TAG, "onLikeButtonListener: iv pressed")
+
     }
 
 

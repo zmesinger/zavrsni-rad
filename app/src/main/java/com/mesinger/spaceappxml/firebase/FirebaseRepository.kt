@@ -3,6 +3,7 @@ package com.mesinger.spaceappxml.firebase
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -36,6 +37,7 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
         return db.collection("posts")
             .document(postID)
             .collection("comments")
+
     }
 
     fun getLikeReference(postID: String): CollectionReference {
@@ -93,6 +95,29 @@ class FirebaseRepository(private val db: FirebaseFirestore) {
 
     }
 
+    fun checkIfLiked(postID: String, user: FirebaseUser): Boolean {
+        var isLiked = false
+        getLikeReference(postID)
+            .addSnapshotListener{ snapshot, e ->
+                if (snapshot != null) {
+                    if(snapshot.equals(user.uid)) {
+                        isLiked = true
+                    }
+                }
+            }
+        return isLiked
+    }
+
+    fun getLikeCount(postID: String): Int {
+        var numberOfLikes = 0
+        getLikeReference(postID)
+            .addSnapshotListener { snapshot, e ->
+                if (snapshot != null) {
+                    numberOfLikes = snapshot.count()
+                }
+            }
+        return numberOfLikes
+    }
 
 
 

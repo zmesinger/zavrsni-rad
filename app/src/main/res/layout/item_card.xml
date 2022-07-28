@@ -75,6 +75,15 @@
             android:contentDescription="@string/like_unlike_imageview"
             />
 
+        <TextView
+            android:id="@+id/likeCountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:padding="10dp"
+            />
+
     </LinearLayout>
 
 

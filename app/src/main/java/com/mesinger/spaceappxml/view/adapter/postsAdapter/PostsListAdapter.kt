@@ -2,18 +2,35 @@ package com.mesinger.spaceappxml.view.adapter.postsadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mesinger.spaceappxml.R
 import com.mesinger.spaceappxml.service.model.Post
 
+private const val LIKED = "liked"
+private const val UNLIKED = "unliked"
 class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
     private val posts = mutableListOf<Post>()
+    private var isLiked = false
+    private var numberOfLikes = 0
+
+
+
     var onPostEventListener: OnPostEventListener? = null
 
     fun setPosts(posts: List<Post>) {
         this.posts.clear()
         this.posts.addAll(posts)
         this.notifyDataSetChanged()
+    }
+
+    fun setIsLiked(isLiked: Boolean){
+        this.isLiked = isLiked
+    }
+
+    fun setNumberOfLikes(numberOfLikes: Int){
+        this.numberOfLikes = numberOfLikes
     }
 
 
@@ -34,6 +51,10 @@ class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
             holder.getImage().setOnClickListener{ listener.onItemSelectedListener(post.postID) }
             holder.getLikeButton().setOnClickListener{ listener.onLikeButtonListener(post.postID) }
         }
+
+        checkIfLiked(isLiked, holder.getLikeButton())
+        setLikeNumber(numberOfLikes, holder.getLikeCount())
+
     }
 
 
@@ -41,6 +62,22 @@ class PostsListAdapter: RecyclerView.Adapter<PostsViewHolder>() {
     override fun getItemCount(): Int {
             return posts.count()
     }
+
+    private fun checkIfLiked(isLiked: Boolean, imageViewLike: ImageView){
+        if (isLiked){
+            imageViewLike.setImageResource(R.drawable.ic_liked)
+            imageViewLike.tag = LIKED
+        }else{
+            imageViewLike.setImageResource(R.drawable.ic_unliked)
+            imageViewLike.tag = UNLIKED
+        }
+    }
+
+    private fun setLikeNumber(likeNumber: Int, likeNumberTextView: TextView){
+            likeNumberTextView.setText(likeNumber)
+    }
+
+
 
 }
 
